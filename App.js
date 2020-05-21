@@ -13,7 +13,6 @@ import 'react-native-gesture-handler';
 import Routes from './src/Routes';
 
 function App() {
-
   return (
     <NavigationContainer>
         <Routes />
