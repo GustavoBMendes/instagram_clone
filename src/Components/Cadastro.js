@@ -2,11 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Dimensions, Button, SafeAreaView, StatusBar, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-function FirstRoute({jumpTo}) {
+function FirstRoute({jumpTo, props}) {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#fff', }} >
@@ -14,19 +15,21 @@ function FirstRoute({jumpTo}) {
 			<TextInput 
 				placeholder='Insira seu e-mail' 
 				placeholderTextColor='#bfbfbf' 
-				style={{ marginHorizontal: 40, borderColor: '#f5f5f5', backgroundColor: '#fafafa', borderWidth: 1, borderRadius: 5, marginBottom: 10, marginTop: 10, height: 35 }}/>
+				style={styles.textinput}
+				onChangeText={ texto => props.modificaEmail(texto) }
+			/>
 			<TouchableOpacity 
-				style={{ backgroundColor: '#3598f1', height: 35, borderRadius: 2, justifyContent: 'center', marginHorizontal: 40 }}
+				style={styles.butao}
 				onPress={() => jumpTo('second')}
 			>
 				<Text style={{ textAlign: 'center', color: '#fff' }}>AVANÇAR</Text>
 			</TouchableOpacity>
-			<Text style={{ color: '#bfbfbf', textAlign: 'center', marginTop: 10 }}>Não é spam!</Text>
+			<Text style={styles.texto}>Não é spam!</Text>
 		</View>
 	);
 }
 
-function SecondRoute() {
+function SecondRoute({props}) {
 	const navigation = useNavigation();
 
 	return (
@@ -35,11 +38,16 @@ function SecondRoute() {
 			<TextInput 
 				placeholder='Insira uma senha' 
 				placeholderTextColor='#bfbfbf' 
-				style={{ marginHorizontal: 40, borderColor: '#f5f5f5', backgroundColor: '#fafafa', borderWidth: 1, borderRadius: 5, marginBottom: 10, marginTop: 10, height: 35 }}/>
-			<TouchableOpacity style={{ backgroundColor: '#3598f1', height: 35, borderRadius: 2, justifyContent: 'center', marginHorizontal: 40 }}>
-				<Text style={{ textAlign: 'center', color: '#fff' }}>AVANÇAR</Text>
+				style={styles.textinput}	
+				onChangeText={ texto => props.modificaSenha(texto) }
+			/>
+			<TouchableOpacity 
+				style={styles.butao}
+				onPress={() => navigation.navigate('Login')}
+			>
+				<Text style={{ textAlign: 'center', color: '#fff' }}>FINALIZAR CADASTRO</Text>
 			</TouchableOpacity>
-			<Text style={{ color: '#bfbfbf', textAlign: 'center', marginTop: 10, marginHorizontal: 40 }}>Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
+			<Text style={styles.texto} >Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
 		</View>
 	);
 }
@@ -57,7 +65,7 @@ const renderTabBar = props => (
 	</SafeAreaView>
 );
 
-export default function Cadastro() {
+function Cadastro() {
 
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
@@ -68,7 +76,7 @@ export default function Cadastro() {
 	const renderScene = ({ route, jumpTo }) => {
 		switch (route.key) {
 			case 'first':
-				return <FirstRoute jumpTo={jumpTo} />
+				return <FirstRoute jumpTo={jumpTo} {...props} />
 			
 			case 'second':
 				return <SecondRoute jumpTo={jumpTo} />
@@ -82,13 +90,13 @@ export default function Cadastro() {
 				onIndexChange={setIndex}
 				initialLayout={initialLayout}
 				renderTabBar={ renderTabBar }
-				swipeEnabled={false} 
 			/>
 	);
 
 }
 
 const styles = StyleSheet.create({
+
 	scene: {
 	  flex: 1,
 	},
@@ -96,4 +104,35 @@ const styles = StyleSheet.create({
 		elevation: 0,
 		backgroundColor: '#fff'
 	},
+	butao: {
+		backgroundColor: '#3598f1', 
+		height: 35, 
+		borderRadius: 2, 
+		justifyContent: 'center', 
+		marginHorizontal: 40,
+	},
+	textinput: { 
+		marginHorizontal: 40, 
+		borderColor: '#f5f5f5', 
+		backgroundColor: '#fafafa', 
+		borderWidth: 1, 
+		borderRadius: 5, 
+		marginBottom: 10, 
+		marginTop: 10, 
+		height: 35,
+	},
+	texto: {
+		color: '#bfbfbf', 
+		textAlign: 'center', 
+		marginTop: 10, 
+		marginHorizontal: 40,
+	},
+
 });
+
+const mapStateToProps = state => ({
+	email: state.AutenticacaoReducer.email,
+	senha: state.AutenticacaoReducer.senha,
+});
+
+export default connect(mapStateToProps, { modificaEmail, modificaSenha, cadastraUsuario })(Cadastro);
