@@ -4,9 +4,13 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+//import { modificaEmail, modificaSenha, cadastraUsuario } from '../Actions/AutenticacaoActions';
+import FirstRoute from './EmailCad';
+import SecondRoute from './SenhaCad';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
+/*
 function FirstRoute({jumpTo, props}) {
 
 	return (
@@ -28,6 +32,7 @@ function FirstRoute({jumpTo, props}) {
 		</View>
 	);
 }
+
 
 function SecondRoute({props}) {
 	const navigation = useNavigation();
@@ -51,6 +56,7 @@ function SecondRoute({props}) {
 		</View>
 	);
 }
+*/
 
 const renderTabBar = props => (
 	<SafeAreaView>
@@ -65,7 +71,7 @@ const renderTabBar = props => (
 	</SafeAreaView>
 );
 
-function Cadastro() {
+export default function Cadastro() {
 
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
@@ -76,10 +82,10 @@ function Cadastro() {
 	const renderScene = ({ route, jumpTo }) => {
 		switch (route.key) {
 			case 'first':
-				return <FirstRoute jumpTo={jumpTo} {...props} />
+				return <FirstRoute jumpTo={jumpTo}/>
 			
 			case 'second':
-				return <SecondRoute jumpTo={jumpTo} />
+				return <SecondRoute />
 		}
 	}
 
@@ -130,9 +136,12 @@ const styles = StyleSheet.create({
 
 });
 
+
+/*
 const mapStateToProps = state => ({
 	email: state.AutenticacaoReducer.email,
 	senha: state.AutenticacaoReducer.senha,
 });
 
 export default connect(mapStateToProps, { modificaEmail, modificaSenha, cadastraUsuario })(Cadastro);
+*/

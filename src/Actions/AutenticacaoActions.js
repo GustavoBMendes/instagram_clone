@@ -1,6 +1,8 @@
 import {
 	MODIFICA_EMAIL,
-	MODIFICA_SENHA
+	MODIFICA_SENHA,
+	SUCESSO_CADASTRO,
+	ERRO_CADASTRO,
 } from './Types';
 
 import firebase from 'firebase';
@@ -37,4 +39,14 @@ export const cadastraUsuario = ({ email, senha, navigation }) => {
 
 	}
 
+}
+
+const cadastroSucesso = ( dispatch, navigation ) => {
+	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
+
+	navigation.navigate('BoasVindas');
+}
+
+const cadastroErro = (erro, dispatch) => {
+	dispatch ({ type: ERRO_CADASTRO, payload: erro.message });
 }
