@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StatusBar, Text, StyleSheet } from 'react-native';
+import { View, StatusBar, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -29,13 +29,38 @@ function Finalizar({props}) {
 	);
 }
 */
+
 class SenhaCad extends Component {
 	
 	_cadastraUsuario() {
-		const { email, senha } = this.props;
+		
+		const { email, senha, navigation } = this.props;
 		console.log(email);
 		console.log(senha);
-		//this.props.cadastraUsuario(email,senha,navigation);
+		this.props.cadastraUsuario({ email, senha, navigation });
+	}
+
+	renderButton() {
+
+		if(this.props.loading_cadastro) {
+
+			return(
+				<ActivityIndicator size='large' />
+			);
+
+		}
+
+		else {
+			return(
+				<TouchableOpacity 
+					style={styles.butao}
+					onPress={() => this._cadastraUsuario()}
+				>
+					<Text style={{ textAlign: 'center', color: '#fff' }}>FINALIZAR CADASTRO</Text>
+				</TouchableOpacity>
+			);
+		}
+		
 	}
 
 	render() {
@@ -49,12 +74,7 @@ class SenhaCad extends Component {
 					style={styles.textinput}	
 					onChangeText={ texto => this.props.modificaSenha(texto) }
 				/>
-				<TouchableOpacity 
-					style={styles.butao}
-					onPress={() => this._cadastraUsuario()}
-				>
-					<Text style={{ textAlign: 'center', color: '#fff' }}>FINALIZAR CADASTRO</Text>
-				</TouchableOpacity>
+				{this.renderButton()}
 				<Text style={styles.texto} >Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
 			</View>
 		);
@@ -93,6 +113,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
 	email: state.AutenticacaoReducer.email,
 	senha: state.AutenticacaoReducer.senha,
+	loading_cadastro: state.AutenticacaoReducer.loading_cadastro,
 });
 
 export default connect(mapStateToProps, { modificaSenha, cadastraUsuario })(SenhaCad);

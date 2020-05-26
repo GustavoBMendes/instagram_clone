@@ -3,6 +3,7 @@ import {
 	MODIFICA_SENHA,
 	SUCESSO_CADASTRO,
 	ERRO_CADASTRO,
+	CARREGANDO_CADASTRO,
 } from './Types';
 
 import firebase from 'firebase';
@@ -32,7 +33,7 @@ export const cadastraUsuario = ({ email, senha, navigation }) => {
 			.then(user => {
 				let emailb64 = b64.encode(email);
 				firebase.database().ref('/contatos/'+emailb64)
-					.push({ nome })
+					.push({email})
 					.then( value => cadastroSucesso(dispatch, navigation) )
 			})
 			.catch(erro => cadastroErro(erro, dispatch));
@@ -44,7 +45,7 @@ export const cadastraUsuario = ({ email, senha, navigation }) => {
 const cadastroSucesso = ( dispatch, navigation ) => {
 	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
 
-	navigation.navigate('BoasVindas');
+	navigation.navigate('Login');
 }
 
 const cadastroErro = (erro, dispatch) => {
