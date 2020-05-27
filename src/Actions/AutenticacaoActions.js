@@ -8,6 +8,7 @@ import {
 
 import firebase from 'firebase';
 import b64 from 'base-64';
+import { useNavigation } from '@react-navigation/native';
 
 export const modificaEmail = (texto) => {
 	return {
@@ -23,15 +24,16 @@ export const modificaSenha = (texto) => {
 	}
 }
 
-export const cadastraUsuario = ({ email, senha, navigation }) => {
+export const cadastraUsuario = ({ email, senha }, navigation) => {
 	
 	return dispatch => {
 	
 		dispatch({ type: CARREGANDO_CADASTRO })
-
+		console.log(email);
 		firebase.auth().createUserWithEmailAndPassword(email, senha)
 			.then(user => {
 				let emailb64 = b64.encode(email);
+				console.log(emailb64);
 				firebase.database().ref('/contatos/'+emailb64)
 					.push({email})
 					.then( value => cadastroSucesso(dispatch, navigation) )
@@ -44,7 +46,7 @@ export const cadastraUsuario = ({ email, senha, navigation }) => {
 
 const cadastroSucesso = ( dispatch, navigation ) => {
 	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
-
+	
 	navigation.navigate('Login');
 }
 

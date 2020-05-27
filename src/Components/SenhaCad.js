@@ -33,11 +33,10 @@ function Finalizar({props}) {
 class SenhaCad extends Component {
 	
 	_cadastraUsuario() {
-		
-		const { email, senha, navigation } = this.props;
+		const { email, senha } = this.props;
 		console.log(email);
 		console.log(senha);
-		this.props.cadastraUsuario({ email, senha, navigation });
+		this.props.cadastraUsuario({ email, senha }, this.props.navigation);
 	}
 
 	renderButton() {
@@ -68,6 +67,7 @@ class SenhaCad extends Component {
 			<View style={{ flex: 1, backgroundColor: '#fff' }} >
 				<StatusBar backgroundColor='#fff' barStyle='dark-content'/>
 				<TextInput 
+					secureTextEntry={true} 
 					value = {this.props.senha}
 					placeholder='Insira uma senha' 
 					placeholderTextColor='#bfbfbf' 

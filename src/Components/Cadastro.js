@@ -73,6 +73,7 @@ const renderTabBar = props => (
 
 export default function Cadastro() {
 
+	const navigation = useNavigation();
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
 		{ key: 'first', title: 'Email'},
@@ -85,7 +86,7 @@ export default function Cadastro() {
 				return <FirstRoute jumpTo={jumpTo}/>
 			
 			case 'second':
-				return <SecondRoute />
+				return <SecondRoute navigation={navigation}/>
 		}
 	}
 
