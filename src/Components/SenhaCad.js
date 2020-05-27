@@ -5,31 +5,6 @@ import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { modificaSenha, cadastraUsuario, } from '../Actions/AutenticacaoActions';
 
-/*
-function Finalizar({props}) {
-	const navigation = useNavigation();
-	return(
-		<View style={{ flex: 1, backgroundColor: '#fff' }} >
-				<StatusBar backgroundColor='#fff' barStyle='dark-content'/>
-				<TextInput 
-					value = {this.props.senha}
-					placeholder='Insira uma senha' 
-					placeholderTextColor='#bfbfbf' 
-					style={styles.textinput}	
-					onChangeText={ texto => props.modificaSenha(texto) }
-				/>
-				<TouchableOpacity 
-					style={styles.butao}
-					onPress={() => _cadastraUsuario(navigation)}
-				>
-					<Text style={{ textAlign: 'center', color: '#fff' }}>FINALIZAR CADASTRO</Text>
-				</TouchableOpacity>
-				<Text style={styles.texto} >Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
-		</View>
-	);
-}
-*/
-
 class SenhaCad extends Component {
 	
 	_cadastraUsuario() {

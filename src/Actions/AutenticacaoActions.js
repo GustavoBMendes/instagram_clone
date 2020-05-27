@@ -4,11 +4,13 @@ import {
 	SUCESSO_CADASTRO,
 	ERRO_CADASTRO,
 	CARREGANDO_CADASTRO,
+	LOGIN_ERRO,
+	LOGIN_SUCESSO,
+	CARREGANDO_LOGIN,
 } from './Types';
 
 import firebase from 'firebase';
 import b64 from 'base-64';
-import { useNavigation } from '@react-navigation/native';
 
 export const modificaEmail = (texto) => {
 	return {
@@ -46,10 +48,46 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 
 const cadastroSucesso = ( dispatch, navigation ) => {
 	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
-	
+
 	navigation.navigate('Login');
 }
 
 const cadastroErro = (erro, dispatch) => {
 	dispatch ({ type: ERRO_CADASTRO, payload: erro.message });
+}
+
+export const autenticarUser = ({ email, senha, navigation }) => {
+	
+	return dispatch => {
+
+		dispatch({ type: CARREGANDO_LOGIN })
+		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+		.then( () => {
+		firebase.auth().signInWithEmailAndPassword(email, senha)
+			.then(value => loginSucesso(dispatch, navigation))
+			.catch(erro => loginErro(erro, dispatch));
+		});
+
+		console.log('current user 2', firebase.auth().currentUser);
+	}
+
+}
+
+const loginSucesso = (dispatch, navigation) => {
+
+	dispatch ({
+		type: LOGIN_SUCESSO
+	})
+
+	alert('Logou');
+
+}
+
+const loginErro = (erro, dispatch) => {
+
+	dispatch ({
+		type: LOGIN_ERRO,
+		payload: erro.message
+	})
+
 }
