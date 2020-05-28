@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Image, Text, ActivityIndicator, } from 'react-native';
+import { View, StatusBar, Image, Text, ActivityIndicator, StyleSheet, } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import * as firebase from 'firebase';
 import { modificaSenha, modificaEmail, autenticarUser, } from '../Actions/AutenticacaoActions';
 
 class Login extends Component {

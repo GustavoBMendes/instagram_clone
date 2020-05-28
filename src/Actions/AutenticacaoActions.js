@@ -79,7 +79,7 @@ const loginSucesso = (dispatch, navigation) => {
 		type: LOGIN_SUCESSO
 	})
 
-	alert('Logou');
+	navigation.navigate('Feed');
 
 }
 

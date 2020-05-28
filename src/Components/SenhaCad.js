@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, StatusBar, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import { modificaSenha, cadastraUsuario, } from '../Actions/AutenticacaoActions';
 
 class SenhaCad extends Component {

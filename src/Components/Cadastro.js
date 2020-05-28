@@ -1,62 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Button, SafeAreaView, StatusBar, Text } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { View, StyleSheet, Dimensions, SafeAreaView, } from 'react-native';
+import { TabView, TabBar, } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-//import { modificaEmail, modificaSenha, cadastraUsuario } from '../Actions/AutenticacaoActions';
 import FirstRoute from './EmailCad';
 import SecondRoute from './SenhaCad';
 
 const initialLayout = { width: Dimensions.get('window').width };
-
-/*
-function FirstRoute({jumpTo, props}) {
-
-	return (
-		<View style={{ flex: 1, backgroundColor: '#fff', }} >
-			<StatusBar backgroundColor='#fff' barStyle='dark-content'/>
-			<TextInput 
-				placeholder='Insira seu e-mail' 
-				placeholderTextColor='#bfbfbf' 
-				style={styles.textinput}
-				onChangeText={ texto => props.modificaEmail(texto) }
-			/>
-			<TouchableOpacity 
-				style={styles.butao}
-				onPress={() => jumpTo('second')}
-			>
-				<Text style={{ textAlign: 'center', color: '#fff' }}>AVANÇAR</Text>
-			</TouchableOpacity>
-			<Text style={styles.texto}>Não é spam!</Text>
-		</View>
-	);
-}
-
-
-function SecondRoute({props}) {
-	const navigation = useNavigation();
-
-	return (
-		<View style={{ flex: 1, backgroundColor: '#fff' }} >
-			<StatusBar backgroundColor='#fff' barStyle='dark-content'/>
-			<TextInput 
-				placeholder='Insira uma senha' 
-				placeholderTextColor='#bfbfbf' 
-				style={styles.textinput}	
-				onChangeText={ texto => props.modificaSenha(texto) }
-			/>
-			<TouchableOpacity 
-				style={styles.butao}
-				onPress={() => navigation.navigate('Login')}
-			>
-				<Text style={{ textAlign: 'center', color: '#fff' }}>FINALIZAR CADASTRO</Text>
-			</TouchableOpacity>
-			<Text style={styles.texto} >Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
-		</View>
-	);
-}
-*/
 
 const renderTabBar = props => (
 	<SafeAreaView>
