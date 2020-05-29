@@ -58,14 +58,7 @@ export default class Routes extends Component {
 					name='Feed'
 					component={Feed}
 					options={{
-						headerTitle: props => <LogoTitle {...props} />,
-						headerBackTitleVisible: false,
-						headerLeft: props => <Camera {...props}/>,
-						headerRight: props => <Direct {...props}/>,
-						headerStyle: {
-							borderWidth: 1,
-							borderColor: '#f5f5f5'
-						}
+						headerShown: false,
 					}}
 				/>
 

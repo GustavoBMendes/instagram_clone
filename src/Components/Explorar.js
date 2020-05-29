@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 
-function Perfil({ navigation }) {
+function Explorar({ navigation }) {
 	return (
 		<View>
-			<Text>Perfil</Text>
+			<Text>Explorar</Text>
 		</View>
 	)
 }
 
-export default Perfil;
+export default Explorar;
