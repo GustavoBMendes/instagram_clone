@@ -14,18 +14,22 @@ const Tab = createBottomTabNavigator();
 function Home() {
 	return (
 		
-		<View style={{ height: 65, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-			<TouchableOpacity style={{ marginLeft: 7, marginTop: 10 }}>
-				<Image source={require('../imgs/fotografia.png')} style={{ height: 30, width: 30 }}/>
-			</TouchableOpacity>
+		<View style={{ backgroundColor: '#fff', flex: 1 }}>
 
-			<TouchableOpacity>
-				<Image source={require('../imgs/instagram_logo.svg')} style={{ height: 44, width: 140, marginTop: 13, }}/>
-			</TouchableOpacity>
+			<View style={{ height: 65, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#bfbfbf' }}>
+				<TouchableOpacity style={{ marginLeft: 7, marginTop: 10 }}>
+					<Image source={require('../imgs/fotografia.png')} style={{ height: 25, width: 25 }}/>
+				</TouchableOpacity>
 
-			<TouchableOpacity style={{ marginRight: 7, marginTop: 10 }}>
-				<Image source={require('../imgs/enviar.png')} style={{ height: 30, width: 30, }}/>
-			</TouchableOpacity>
+				<TouchableOpacity>
+					<Image source={require('../imgs/instagram_logo.svg')} style={{ height: 40, width: 110, marginTop: 13, }}/>
+				</TouchableOpacity>
+
+				<TouchableOpacity style={{ marginRight: 7, marginTop: 10 }}>
+					<Image source={require('../imgs/enviar.png')} style={{ height: 25, width: 25, }}/>
+				</TouchableOpacity>
+			</View>
+
 		</View>
 	);
 }

@@ -40,7 +40,7 @@ export default class Routes extends Component {
 
 		return (
 			<Stack.Navigator
-				initialRouteName='Login'
+				initialRouteName='Feed'
 			>
 				<Stack.Screen 
 					name='Login'
