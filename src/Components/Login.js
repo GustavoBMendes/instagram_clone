@@ -6,6 +6,16 @@ import * as firebase from 'firebase';
 import { modificaSenha, modificaEmail, autenticarUser, } from '../Actions/AutenticacaoActions';
 
 class Login extends Component {
+  
+  componentDidMount() {
+
+    firebase.auth().onAuthStateChanged(user => {
+      if(user != null) {
+        //this.props.navigation.navigate('Feed');
+      }
+    })
+
+  }
 
   _autenticarUser() {
     const { email, senha, navigation } = this.props;
@@ -84,6 +94,8 @@ class Login extends Component {
             style={styles.senha}
           />
           
+          <Text style={{ color: 'red', marginBottom: 5 }}>{this.props.msg_erro_login}</Text>
+
           {this.RenderBtn()}
 
           <TouchableOpacity onPress={() => false}>
@@ -112,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa', 
     borderWidth: 1, 
     borderRadius: 5, 
-    marginBottom: 20, 
+    marginBottom: 15, 
     height: 35 
   },
 
@@ -154,7 +166,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
 	email: state.AutenticacaoReducer.email,
 	senha: state.AutenticacaoReducer.senha,
-	loading_login: state.AutenticacaoReducer.loading_login,
+  loading_login: state.AutenticacaoReducer.loading_login,
+  msg_erro_login: state.AutenticacaoReducer.msg_erro_login,
 });
 
 export default connect(mapStateToProps, 

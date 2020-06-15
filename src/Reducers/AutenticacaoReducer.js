@@ -14,6 +14,8 @@ const INITIAL_STATE = {
 	senha: '',
 	loading_cadastro: false,
 	loading_login: false,
+	msg_erro_login: '',
+	msg_erro_cad: '',
 }
 
 export default ( state = INITIAL_STATE, action ) => {
@@ -40,6 +42,12 @@ export default ( state = INITIAL_STATE, action ) => {
 
 		case LOGIN_SUCESSO:
 			return { ...state, loading_login: false, email: '', senha: '' }
+
+		case LOGIN_ERRO:
+			return { ...state, msg_erro_login: action.payload, loading_login: false }
+
+		case ERRO_CADASTRO:
+			return { ...state, msg_erro_cad: action.payload, loading_cadastro: false }
 
 		default:
 			return state;

@@ -48,6 +48,7 @@ class SenhaCad extends Component {
 					style={styles.textinput}	
 					onChangeText={ texto => this.props.modificaSenha(texto) }
 				/>
+				<Text style={{ color: 'red' }}>{this.props.msg_erro_cad}</Text>
 				{this.renderButton()}
 				<Text style={styles.texto} >Dica: Crie uma senha de no mínimo 7 caracteres, contendo letras e números.</Text>
 			</View>
@@ -88,6 +89,7 @@ const mapStateToProps = state => ({
 	email: state.AutenticacaoReducer.email,
 	senha: state.AutenticacaoReducer.senha,
 	loading_cadastro: state.AutenticacaoReducer.loading_cadastro,
+	msg_erro_cad: state.AutenticacaoReducer.msg_erro_cad,
 });
 
 export default connect(mapStateToProps, { modificaSenha, cadastraUsuario })(SenhaCad);

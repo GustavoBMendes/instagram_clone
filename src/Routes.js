@@ -7,6 +7,7 @@ import Feed from './Components/Feed';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import firebase from 'firebase';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +41,7 @@ export default class Routes extends Component {
 
 		return (
 			<Stack.Navigator
-				initialRouteName='Feed'
+				initialRouteName='Login'
 			>
 				<Stack.Screen 
 					name='Login'
