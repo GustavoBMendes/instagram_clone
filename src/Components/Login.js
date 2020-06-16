@@ -11,7 +11,7 @@ class Login extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       if(user != null) {
-        //this.props.navigation.navigate('Feed');
+        this.props.navigation.navigate('Feed');
       }
     })
 

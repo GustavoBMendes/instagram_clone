@@ -6,3 +6,4 @@ export const CARREGANDO_CADASTRO = 'cadastro_carregando';
 export const CARREGANDO_LOGIN = 'carregando_login';
 export const LOGIN_SUCESSO = 'login_sucesso';
 export const LOGIN_ERRO = 'login_erro';
+export const INFO_PERFIL_USER = 'info_perfil_user';
