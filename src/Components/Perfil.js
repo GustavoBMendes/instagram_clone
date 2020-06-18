@@ -6,34 +6,15 @@ import { connect } from 'react-redux';
 import { infoPerfilUser } from '../Actions/AppActions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-/*
-<View>
-	<View style={{ flexDirection: 'row' }}>
-		<Text>IMAGEM PERFIL</Text>
-		<Text># POSTS</Text>
-		<Text># SEGUIDORES</Text>
-		<Text># SEGUINDO</Text>
-	</View>
-	<View>
-		<Text>NOME</Text>
-		<Text>Descrição perfil</Text>
-		<Text>Botão editar perfil</Text>
-	</View>
-</View>
-
-<View>
-	<Text>FOTOS</Text>
-</View>
-*/
-
-function Informacoes({ item }) {
+function Informacoes({ item, navigation }) {
 	console.log("PERFIL", item);
-	const foto = item.foto;
+	console.log('FOTO ', item.foto);
+	var foto = item.foto;
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<Image source={{ uri: foto }} style={{ marginLeft: 15, }} />
+					<Image source={require('../imgs/foto_perfil.png')} style={{ marginLeft: 15, }} />
 				</View>
 
 				<View style={{ marginLeft: 25, marginTop: 17 }}>
@@ -57,7 +38,7 @@ function Informacoes({ item }) {
 				<Text>{item.descricao}</Text>
 			</View>
 
-			<TouchableOpacity onPress={() => false} 
+			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil')} 
 				style={{height: 25, 
 						marginHorizontal: 20, 
 						borderRadius: 3, 
@@ -93,15 +74,26 @@ class Perfil extends Component {
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
 				<View style={{ backgroundColor: '#fff', }}>
 
-					<View style={{ height: 65, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', }}>
-						<Text style={{ marginTop: 15, fontWeight: 'bold' }}>Nome Usuario</Text>
+					<View style={{ 	height: 65, 
+									backgroundColor: '#fff', 
+									justifyContent: 'space-around', 
+									flexDirection: 'row', 
+									marginLeft: 130,
+									alignItems: 'center'
+								}}
+					>
+						<Text style={{ fontWeight: 'bold', }}>Nome Usuario</Text>
+						
+						<TouchableOpacity onPress={() => false}>
+							<Image source={require('../imgs/menu.png')} style={{ marginLeft: 70, }}/>
+						</TouchableOpacity>
 					</View>
 
 				</View>
 
 				<FlatList 
 					data={this.dataSource}
-					renderItem={ ({ item }) => <Informacoes item={item}/> }
+					renderItem={ ({ item }) => <Informacoes item={item} navigation={this.props.navigation} /> }
 					keyExtractor={item => item.email}
 				/>
 

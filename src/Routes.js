@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
+import { createStackNavigator, } from '@react-navigation/stack';
+import { Image, } from 'react-native';
+import { TouchableOpacity, } from 'react-native-gesture-handler';
+import { useNavigation, } from '@react-navigation/native';
 
 import Login from './Components/Login';
 import Cadastro from './Components/Cadastro';
 import Feed from './Components/Feed';
-import { Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-import firebase from 'firebase';
+import Perfil from './Components/Perfil';
+import EditarPerfil from './Components/EditarPerfil';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,22 @@ export default class Routes extends Component {
 				<Stack.Screen 
 					name='Feed'
 					component={Feed}
+					options={{
+						headerShown: false,
+					}}
+				/>
+
+				<Stack.Screen
+					name='Perfil'
+					component={Perfil}
+					options={{
+						headerShown: false,
+					}}
+				/>
+
+				<Stack.Screen
+					name='Editar Perfil'
+					component={EditarPerfil}
 					options={{
 						headerShown: false,
 					}}
