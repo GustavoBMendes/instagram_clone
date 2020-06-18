@@ -37,7 +37,7 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 				let emailb64 = b64.encode(email);
 				console.log(emailb64);
 				firebase.database().ref('/contatos/'+emailb64)
-					.push({email, posts: 0, seguidores: 0, seguindo: 0, descricao: "" })
+					.push({email, posts: 0, seguidores: 0, seguindo: 0, descricao: "", foto: '../imgs/foto_perfil.svg' })
 					.then( value => cadastroSucesso(dispatch, navigation) )
 			})
 			.catch(erro => cadastroErro(erro, dispatch));

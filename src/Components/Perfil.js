@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import { infoPerfilUser } from '../Actions/AppActions';
-import { SafeAreaView } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /*
@@ -29,11 +28,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function Informacoes({ item }) {
 	console.log("PERFIL", item);
+	const foto = item.foto;
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<Text style={{ marginLeft: 35, marginTop: 25 }}>FOTO</Text>
+					<Image source={{ uri: foto }} style={{ marginLeft: 15, }} />
 				</View>
 
 				<View style={{ marginLeft: 25, marginTop: 17 }}>
@@ -52,7 +52,8 @@ function Informacoes({ item }) {
 				</View>
 			</View>
 
-			<View style={{ marginLeft: 20, marginTop: 35, marginBottom: 25 }}>
+			<View style={{ marginLeft: 20, marginTop: 20, marginBottom: 25 }}>
+				<Text style={{ fontWeight: 'bold' }}>Nome</Text>
 				<Text>{item.descricao}</Text>
 			</View>
 
