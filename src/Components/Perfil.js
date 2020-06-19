@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { infoPerfilUser } from '../Actions/AppActions';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import PerfilFotos from './PerfilFotos';
 
 function Informacoes({ item, navigation }) {
 	console.log("PERFIL", item);
 	console.log('FOTO ', item.foto);
-	var foto = item.foto;
+	const foto = item.foto;
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
@@ -72,7 +73,6 @@ class Perfil extends Component {
 
 		return (
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
-				<View style={{ backgroundColor: '#fff', }}>
 
 					<View style={{ 	height: 65, 
 									backgroundColor: '#fff', 
@@ -89,17 +89,13 @@ class Perfil extends Component {
 						</TouchableOpacity>
 					</View>
 
-				</View>
-
 				<FlatList 
 					data={this.dataSource}
 					renderItem={ ({ item }) => <Informacoes item={item} navigation={this.props.navigation} /> }
 					keyExtractor={item => item.email}
 				/>
 
-				<View style={{ flex: 10 }}>
-					<Text>FOTOS</Text>
-				</View>
+				<PerfilFotos />
 
 			</View>
 		)

@@ -14,7 +14,7 @@ export const infoPerfilUser = () => {
 		const emailUserB64 = b64.encode( currentUser.email );
 
 		firebase.database().ref('/contatos/'+emailUserB64)
-			.on('value', snapshot => {
+			.once('value', snapshot => {
 				dispatch({ type: INFO_PERFIL_USER, payload: snapshot.val() })
 			})
 

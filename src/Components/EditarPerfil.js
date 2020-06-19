@@ -7,14 +7,15 @@ import { connect } from 'react-redux';
 import { infoPerfilUser } from '../Actions/AppActions';
 
 function Informacoes({ item, navigation }) {
-	var foto = item.foto;
+	const foto = item.foto;
+	//'../imgs/foto_perfil.png'
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 				
 				<Image source={require('../imgs/foto_perfil.png')} style={{ marginTop: 15 }} />
 
-				<TouchableOpacity 	onPress={() => navigation.navigate('Editar Perfil')} style={{ justifyContent: 'center', }}>
+				<TouchableOpacity 	onPress={() => false} style={{ justifyContent: 'center', }}>
 					<Text 
 						style={{fontWeight: 'bold', 
 								textAlign: 'center', 
