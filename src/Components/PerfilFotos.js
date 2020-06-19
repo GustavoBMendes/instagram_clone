@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Dimensions, SafeAreaView, Text } from 'react-native';
+import { View, Dimensions, SafeAreaView, Text, Image } from 'react-native';
 import { TabView, TabBar, } from 'react-native-tab-view';
+
+import Images from '../imgs/index';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -20,6 +22,9 @@ const renderTabBar = props => (
 				indicatorStyle={{ backgroundColor: 'black' }}
 				style={{ backgroundColor: '#fff', }}
 				labelStyle={{color: 'black'}}
+				renderLabel={({ route, focused, color }) => (
+					<Image source={route.imagem} style={{ height: 25, width: 25 }} />
+				)}
 			/>
 		</View>
 	</SafeAreaView>
@@ -29,8 +34,8 @@ export default function PerfilFotos() {
 
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
-		{ key: 'first', title: 'Fotos'},
-		{ key: 'second', title: 'Marcado' },
+		{ key: 'first', title: 'Fotos', imagem: Images.fotos_postadas },
+		{ key: 'second', title: 'Marcado', imagem: Images.marcadas },
 	]);
 
 	const renderScene = ({ route }) => {
