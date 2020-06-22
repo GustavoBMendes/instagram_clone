@@ -1,5 +1,6 @@
 const images = {
 	
+	foto_perfil: require('./foto_perfil.png'),
 	home: require('./casa.png'),
 	home_black: require('./casa.preta.png'),
 	fotos_postadas: require('./suasFotos.png'),

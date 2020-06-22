@@ -4,18 +4,17 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import Images from '../imgs/index';
 import { infoPerfilUser } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 function Informacoes({ item, navigation }) {
-	console.log("PERFIL", item);
-	console.log('FOTO ', item.foto);
-	const foto = item.foto;
+	
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<Image source={require('../imgs/foto_perfil.png')} style={{ marginLeft: 15, }} />
+					<Image source={Images.foto_perfil} style={{ marginLeft: 15, }} />
 				</View>
 
 				<View style={{ marginLeft: 25, marginTop: 17 }}>

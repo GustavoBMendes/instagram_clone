@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
+import Images from '../imgs/index';
 import { infoPerfilUser } from '../Actions/AppActions';
+import ImagePicker from './ImagePickerPerfil';
 
 function Informacoes({ item, navigation }) {
-	const foto = item.foto;
-	//'../imgs/foto_perfil.png'
+
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 				
-				<Image source={require('../imgs/foto_perfil.png')} style={{ marginTop: 15 }} />
+				<Image source={Images.foto_perfil} style={{ marginTop: 15 }} />
 
-				<TouchableOpacity 	onPress={() => false} style={{ justifyContent: 'center', }}>
-					<Text 
-						style={{fontWeight: 'bold', 
-								textAlign: 'center', 
-								fontSize: 15, 
-								color: '#3598f1', 
-								marginTop: 15,
-					}}>
-						Alterar foto do perfil
-					</Text>
-				</TouchableOpacity>
+				<ImagePicker />
 
 			</View>
 
