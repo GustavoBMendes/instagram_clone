@@ -3,6 +3,8 @@ import { View, Text, Image, StatusBarIOS } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import Images from '../imgs/index';
+
 import Perfil from './Perfil';
 import Explorar from './Explorar';
 import Atividade from './Atividade';
@@ -39,21 +41,31 @@ export default class Feed extends Component {
 		return (
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
-					tabBarIcon: ({}) => {
-						if(route.name === 'Home')
-							return <Image source={require('../imgs/casa.png')} style={{ height: 25, width: 25 }} />;
+					tabBarIcon: ({ focused }) => {
+						if(route.name === 'Home') {
+							iconName = focused ? Images.home_black : Images.home;
+							return <Image source={iconName} style={{ height: 25, width: 25 }} />;
+						}
 
-						if(route.name === 'Explorar')
-							return <Image source={require('../imgs/procurar.png')} style={{ height: 25, width: 25 }} />;
+						if(route.name === 'Explorar') {
+							iconName = focused ? Images.search_black : Images.search;
+							return <Image source={iconName} style={{ height: 25, width: 25 }} />;
+						}
 
-						if(route.name === 'Post')
-							return <Image source={require('../imgs/mais.png')} style={{ height: 25, width: 25 }} />;
+						if(route.name === 'Post') {
+							iconName = focused ? Images.mais_preto : Images.mais;
+							return <Image source={iconName} style={{ height: 25, width: 25 }} />;
+						}
 
-						if(route.name === 'Atividade')
-							return <Image source={require('../imgs/coracao.png')} style={{ height: 25, width: 25 }} />;
+						if(route.name === 'Atividade') {
+							iconName = focused ? Images.black_heart : Images.heart;
+							return <Image source={iconName} style={{ height: 25, width: 25 }} />;
+						}
 
-						if(route.name === 'Perfil')
-							return <Image source={require('../imgs/do-utilizador.png')} style={{ height: 25, width: 25 }} />;
+						if(route.name === 'Perfil') {
+							iconName = focused ? Images.profile_black : Images.profile;
+							return <Image source={iconName} style={{ height: 25, width: 25 }} />;
+						}
 
 					},
 				})}
