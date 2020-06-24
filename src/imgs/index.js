@@ -1,4 +1,4 @@
-const images = {
+var images = {
 	
 	foto_perfil: require('./foto_perfil.png'),
 	home: require('./casa.png'),

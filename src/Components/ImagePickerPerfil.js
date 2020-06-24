@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
-export default function ImagePickerExample() {
+import Images from '../imgs/index';
+import { updatePhoto } from '../Actions/AppActions';
+
+function ImagePickerPerfil() {
+
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -29,6 +33,9 @@ export default function ImagePickerExample() {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      //Images.foto_perfil = result.uri;
+      console.log('teste', result.uri);
+      updatePhoto(result.uri);
     }
   };
 
@@ -38,4 +45,7 @@ export default function ImagePickerExample() {
       <Button title="Escolha uma foto da sua galeria" onPress={pickImage} />
     </View>
   );
+
 }
+
+export default ImagePickerPerfil;

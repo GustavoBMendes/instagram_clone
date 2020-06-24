@@ -15,7 +15,7 @@ function Informacoes({ item, navigation }) {
 			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 				
 				<Image source={Images.foto_perfil} style={{ marginTop: 15 }} />
-
+				
 				<ImagePicker />
 
 			</View>

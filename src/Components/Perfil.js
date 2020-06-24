@@ -10,6 +10,8 @@ import PerfilFotos from './PerfilFotos';
 
 function Informacoes({ item, navigation }) {
 	
+	//Images.foto_perfil = require('../imgs/foto_perfil.png');
+
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
