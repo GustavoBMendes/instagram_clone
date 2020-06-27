@@ -42,6 +42,7 @@ export const updatePhoto = (photo) => {
 	*/
 	//console.log('foi ', photo);
 	return dispatch => {
+		console.log('foi ', action.payload);
 		dispatch({ type: UPDATE_FOTO, payload: photo })
 	}
 

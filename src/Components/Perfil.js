@@ -16,7 +16,7 @@ function Informacoes({ item, navigation }) {
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<Image source={Images.foto_perfil} style={{ marginLeft: 15, }} />
+					<Image source={{ uri: item.foto }} style={{ width: 100, height: 100, borderRadius: 100 }} />
 				</View>
 
 				<View style={{ marginLeft: 25, marginTop: 17 }}>
