@@ -32,12 +32,15 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 	
 		dispatch({ type: CARREGANDO_CADASTRO })
 		console.log(email);
+		
 		firebase.auth().createUserWithEmailAndPassword(email, senha)
 			.then(user => {
 				let emailb64 = b64.encode(email);
 				console.log(emailb64);
-				firebase.database().ref('/contatos/'+emailb64)
-					.push({email, posts: 0, seguidores: 0, seguindo: 0, descricao: "", foto: '../imgs/foto_perfil.svg' })
+				var ref = firebase.database().ref('/contatos/'+emailb64);
+
+				var usersRef = ref.child(emailb64);
+					usersRef.set({'email': email, 'posts': 0, 'seguidores': 0, 'seguindo': 0, 'descricao': "", 'foto': '../imgs/foto_perfil.svg' })
 					.then( value => cadastroSucesso(dispatch, navigation) )
 			})
 			.catch(erro => cadastroErro(erro, dispatch));

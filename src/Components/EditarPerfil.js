@@ -8,8 +8,8 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import Images from '../imgs/index';
-import { infoPerfilUser } from '../Actions/AppActions';
-//import ImagePicker from './ImagePickerPerfil';
+import { infoPerfilUser, updatePhoto } from '../Actions/AppActions';
+
 
 class ImagePic extends Component {
 
@@ -55,8 +55,10 @@ class ImagePic extends Component {
 		}
 		return(
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-				<Image source={{ uri: Images.foto_perfil }} style={{ marginTop: 15,width: 100, height: 100, borderRadius: 100 }} />
-				<Button title="Pick an image from camera roll" onPress={this._pickImage} />
+				<Image source={{ uri: Images.foto_perfil }} style={{ marginTop: 15,width: 88, height: 88, borderRadius: 100 }} />
+				<TouchableOpacity onPress={this._pickImage}>
+					<Text style={{ color: '#3598f1', fontSize: 15, fontWeight: 'bold' }}>Alterar foto do perfil</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
@@ -67,11 +69,13 @@ function Informacoes({ item, navigation }) {
 
 	Images.foto_perfil = item.foto;
 
+	console.log(Images.foto_perfil);
+
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 				
-				<ImagePic />
+				<ImagePic updatePhoto={updatePhoto}/>
 
 			</View>
 
@@ -137,7 +141,7 @@ class EditarPerfil extends Component {
 						<Text style={{ fontWeight: 'bold', fontSize: 17 }}>Editar Perfil</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => false} style={{ marginRight: 7, marginTop: 15 }}>
+					<TouchableOpacity onPress={() => this.props.updatePhoto(Images.foto_perfil, this.props.navigation)} style={{ marginRight: 7, marginTop: 15 }}>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: 'bold', }}>Concluir</Text>
 					</TouchableOpacity>
 
@@ -177,4 +181,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { infoPerfilUser }) (EditarPerfil);
+export default connect(mapStateToProps, { infoPerfilUser, updatePhoto }) (EditarPerfil);

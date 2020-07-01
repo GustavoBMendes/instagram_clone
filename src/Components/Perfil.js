@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image, } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import firebase from 'firebase';
 
 import Images from '../imgs/index';
 import { infoPerfilUser } from '../Actions/AppActions';
@@ -16,7 +17,7 @@ function Informacoes({ item, navigation }) {
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<Image source={{ uri: item.foto }} style={{ width: 100, height: 100, borderRadius: 100 }} />
+					<Image source={{ uri: item.foto }} style={{ width: 88, height: 88, borderRadius: 100, marginLeft: 10 }} />
 				</View>
 
 				<View style={{ marginLeft: 25, marginTop: 17 }}>
@@ -85,7 +86,7 @@ class Perfil extends Component {
 					>
 						<Text style={{ fontWeight: 'bold', }}>Nome Usuario</Text>
 						
-						<TouchableOpacity onPress={() => false}>
+						<TouchableOpacity onPress={() => firebase.auth().signOut().then(() => { this.props.navigation.navigate('Login') })}>
 							<Image source={require('../imgs/menu.png')} style={{ marginLeft: 70, }}/>
 						</TouchableOpacity>
 					</View>

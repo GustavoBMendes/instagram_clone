@@ -26,7 +26,7 @@ export const infoPerfilUser = () => {
 
 }
 
-export const updatePhoto = (photo) => {
+export const updatePhoto = (photo, navigation) => {
 /*
 	const { currentUser } = firebase.auth();
 	return dispatch => {
@@ -41,9 +41,25 @@ export const updatePhoto = (photo) => {
 	}
 	*/
 	//console.log('foi ', photo);
+
+	const { currentUser } = firebase.auth();
+	const emailUserB64 = b64.encode( currentUser.email );
+	console.log('email ', emailUserB64);
+
 	return dispatch => {
-		console.log('foi ', action.payload);
-		dispatch({ type: UPDATE_FOTO, payload: photo })
+		console.log('foi ', photo);
+		dispatch({ type: UPDATE_FOTO })
+		let userRef = firebase.database().ref('/contatos/'+emailUserB64);
+		console.log('user ref', userRef);
+			userRef.child(emailUserB64)
+			.update({ foto: photo })
+			.then( value => uploadSucesso(dispatch, navigation) )
 	}
+
+}
+
+const uploadSucesso = (dispatch, navigation) => {
+
+	navigation.navigate('Perfil');
 
 }
