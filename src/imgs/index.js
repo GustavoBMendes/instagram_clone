@@ -1,6 +1,6 @@
 var images = {
 	
-	foto_perfil: {uri: 'https://dicas.zone/wp-content/uploads/2018/07/Screenshot_16-1.png'},
+	foto_perfil: 'https://dicas.zone/wp-content/uploads/2018/07/Screenshot_16-1.png',
 	home: require('./casa.png'),
 	home_black: require('./casa.preta.png'),
 	fotos_postadas: require('./suasFotos.png'),

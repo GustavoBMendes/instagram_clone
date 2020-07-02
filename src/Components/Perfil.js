@@ -41,7 +41,7 @@ function Informacoes({ item, navigation }) {
 				<Text>{item.descricao}</Text>
 			</View>
 
-			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil')} 
+			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil', { foto: item.foto })} 
 				style={{height: 25, 
 						marginHorizontal: 20, 
 						borderRadius: 3, 
