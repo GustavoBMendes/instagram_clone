@@ -8,7 +8,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import Images from '../imgs/index';
-import { infoPerfilUser, updatePhoto } from '../Actions/AppActions';
+import { infoPerfilUser, updatePerfil, updateNome } from '../Actions/AppActions';
 
 
 class ImagePic extends Component {
@@ -65,7 +65,7 @@ class ImagePic extends Component {
 
 }
 
-function Informacoes({ item, navigation }) {
+function Informacoes({ item, nome, nomeUsr, site, bio, updateNome }) {
 
 	Images.foto_perfil = item.foto;
 
@@ -75,14 +75,14 @@ function Informacoes({ item, navigation }) {
 		<View style={{  }}>
 			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 				
-				<ImagePic updatePhoto={updatePhoto}/>
+				<ImagePic />
 
 			</View>
 
 			<View style={styles.linhas} />
 			<View style={{ flexDirection: 'row' }}>
 				<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Nome</Text>
-				<TextInput value='Nome' style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+				<TextInput value={nome} onChangeText={updateNome(nome)} style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 			</View>
 
 			<View style={{ flexDirection: 'row', }}>
@@ -91,18 +91,18 @@ function Informacoes({ item, navigation }) {
 					<Text style={{ fontSize: 16, marginLeft: 17, }}>de usuário</Text>
 				</View>
 				<View>
-					<TextInput value='Nome' style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+					<TextInput value={nomeUsr} style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 				</View>
 			</View>
 
 			<View style={{ flexDirection: 'row' }}>
 				<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Site</Text>
-				<TextInput placeholder='Seu site' style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+				<TextInput placeholder='Seu site' value={site} style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 			</View>
 
 			<View style={{ flexDirection: 'row' }}>
 				<Text style={{ fontSize: 15, marginTop: 20, marginLeft: 17 }}>Bio</Text>
-				<TextInput value={item.descricao} style={{ fontSize: 20, marginTop: 15, marginLeft: 66, }}/>
+				<TextInput value={bio} style={{ fontSize: 20, marginTop: 15, marginLeft: 66, }}/>
 			</View>
 
 			<View style={styles.linhas}/>
@@ -149,7 +149,15 @@ class EditarPerfil extends Component {
 
 				<FlatList 
 					data={this.dataSource}
-					renderItem={ ({ item }) => <Informacoes item={item} navigation={this.props.navigation} /> }
+					renderItem={ ({ item }) => 
+						<Informacoes 
+							item={item} 
+							nome={this.props.nome} updateNome={this.props.updateNome()}
+							nomeUsr={this.props.nome_usr} 
+							site={this.props.site} 
+							bio={this.props.bio} 
+						/> 
+					}
 					keyExtractor={item => item.email}
 				/>
 
@@ -174,11 +182,15 @@ const mapStateToProps = state => {
 	const info = _.map(state.InfoPerfilUser, (val, uid) => {
 		return { ...val, uid };
 	});
-	
+
 	return {
-		info
+		info,
+		nome: state.InfoPerfilUser.nome,
+		nome_usr: state.InfoPerfilUser.nome_usr,
+		site: state.InfoPerfilUser.site,
+		bio: state.InfoPerfilUser.bio,
 	}
 
 }
 
-export default connect(mapStateToProps, { infoPerfilUser, updatePhoto }) (EditarPerfil);
+export default connect(mapStateToProps, { infoPerfilUser, updatePerfil, updateNome }) (EditarPerfil);

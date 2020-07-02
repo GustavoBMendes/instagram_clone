@@ -5,6 +5,10 @@ import _ from 'lodash';
 import {
 	INFO_PERFIL_USER,
 	UPDATE_FOTO,
+	MODIFICA_NOME,
+	MODIFICA_NOMEUSR,
+	MODIFICA_SITE,
+	MODIFICA_BIO,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -26,21 +30,15 @@ export const infoPerfilUser = () => {
 
 }
 
-export const updatePhoto = (photo, navigation) => {
-/*
-	const { currentUser } = firebase.auth();
+export const updateNome = (nome) => {
+
 	return dispatch => {
-
-		const emailUserB64 = b64.encode( currentUser.email );
-
-		firebase.database().ref('/contatos/'+emailUserB64)
-			.set({
-				foto: photo,
-			}).then(dispatch({ type: UPDATE_FOTO, payload: photo }))
-
+		dispatch({ type: MODIFICA_NOME, payload: nome });
 	}
-	*/
-	//console.log('foi ', photo);
+
+}
+
+export const updatePerfil = (photo, navigation) => {
 
 	const { currentUser } = firebase.auth();
 	const emailUserB64 = b64.encode( currentUser.email );

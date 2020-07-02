@@ -8,3 +8,7 @@ export const LOGIN_SUCESSO = 'login_sucesso';
 export const LOGIN_ERRO = 'login_erro';
 export const INFO_PERFIL_USER = 'info_perfil_user';
 export const UPDATE_FOTO = 'update_foto';
+export const MODIFICA_NOME = 'modifica_nome';
+export const MODIFICA_NOMEUSR = 'modifica_nomeusr';
+export const MODIFICA_SITE = 'modifica_site';
+export const MODIFICA_BIO = 'modifica_bio';

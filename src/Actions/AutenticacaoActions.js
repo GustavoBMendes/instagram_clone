@@ -52,7 +52,7 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 const cadastroSucesso = ( dispatch, navigation ) => {
 	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
 
-	navigation.navigate('Login');
+	navigation.navigate('Editar Perfil');
 }
 
 const cadastroErro = (erro, dispatch) => {
