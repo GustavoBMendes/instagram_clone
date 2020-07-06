@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 }
 
 export default ( state = INITIAL_STATE, action ) => {
-
+	console.log('action ', action.payload);
 	switch(action.type) {
 
 		case INFO_PERFIL_USER:
@@ -27,6 +27,15 @@ export default ( state = INITIAL_STATE, action ) => {
 
 		case MODIFICA_NOME:
 			return { ...state, nome: action.payload };
+
+		case MODIFICA_NOMEUSR:
+			return { ...state, nome_usr: action.payload };
+
+		case MODIFICA_SITE:
+			return { ...state, site: action.payload };
+
+		case MODIFICA_BIO:
+			return { ...state, bio: action.payload };
 
 		default:
 			return state;

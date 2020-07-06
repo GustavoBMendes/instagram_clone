@@ -38,7 +38,31 @@ export const updateNome = (nome) => {
 
 }
 
-export const updatePerfil = (photo, navigation) => {
+export const updateNomeUsr = (nomeUsr) => {
+
+	return dispatch => {
+		dispatch({ type: MODIFICA_NOMEUSR, payload: nomeUsr });
+	}
+
+}
+
+export const updateSite = (site) => {
+
+	return dispatch => {
+		dispatch({ type: MODIFICA_SITE, payload: site });
+	}
+
+}
+
+export const updateBio = (bio) => {
+
+	return dispatch => {
+		dispatch({ type: MODIFICA_BIO, payload: bio });
+	}
+
+}
+
+export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 
 	const { currentUser } = firebase.auth();
 	const emailUserB64 = b64.encode( currentUser.email );
@@ -50,7 +74,7 @@ export const updatePerfil = (photo, navigation) => {
 		let userRef = firebase.database().ref('/contatos/'+emailUserB64);
 		console.log('user ref', userRef);
 			userRef.child(emailUserB64)
-			.update({ foto: photo })
+			.update({ foto: photo, nome: nome, nomeUsr: nomeUsr, site: site, descricao: bio })
 			.then( value => uploadSucesso(dispatch, navigation) )
 	}
 

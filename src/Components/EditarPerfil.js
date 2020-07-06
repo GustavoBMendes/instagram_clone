@@ -8,9 +8,13 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import Images from '../imgs/index';
-import { infoPerfilUser, updatePerfil, updateNome } from '../Actions/AppActions';
-import { StackRouter } from 'react-navigation';
-import { render } from 'react-dom';
+import { 
+	updatePerfil, 
+	updateNome,
+	updateNomeUsr,
+	updateSite,
+	updateBio,
+} from '../Actions/AppActions';
 
 
 class ImagePic extends Component {
@@ -142,7 +146,10 @@ class EditarPerfil extends Component {
 						<Text style={{ fontWeight: 'bold', fontSize: 17 }}>Editar Perfil</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => this.props.updatePerfil(Images.foto_perfil, this.props.navigation)} style={{ marginRight: 7, marginTop: 15 }}>
+					<TouchableOpacity onPress={() => 
+							this.props.updatePerfil(foto, this.props.navigation, this.props.nome, this.props.nome_usr, this.props.site, this.props.bio)} 
+							style={{ marginRight: 7, marginTop: 15 }}
+					>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: 'bold', }}>Concluir</Text>
 					</TouchableOpacity>
 
@@ -158,7 +165,7 @@ class EditarPerfil extends Component {
 					<View style={styles.linhas} />
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Nome</Text>
-						<TextInput value={this.props.nome} onChangeText={this.props.updateNome(this.props.nome)} style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+						<TextInput value={this.props.nome} onChangeText={texto => this.props.updateNome(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 					</View>
 
 					<View style={{ flexDirection: 'row', }}>
@@ -167,21 +174,24 @@ class EditarPerfil extends Component {
 							<Text style={{ fontSize: 16, marginLeft: 17, }}>de usuário</Text>
 						</View>
 						<View>
-							<TextInput value={this.props.nomeUsr} style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+							<TextInput value={this.props.nome_usr} onChangeText={texto => this.props.updateNomeUsr(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 						</View>
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Site</Text>
-						<TextInput placeholder='Seu site' value={this.props.site} style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+						<TextInput placeholder='Seu site' value={this.props.site} onChangeText={texto => this.props.updateSite(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 15, marginTop: 20, marginLeft: 17 }}>Bio</Text>
-						<TextInput value={this.props.bio} style={{ fontSize: 20, marginTop: 15, marginLeft: 66, }}/>
+						<TextInput value={this.props.bio} onChangeText={texto => this.props.updateBio(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 66, width: 250, height: 50, borderColor: '#bfbfbf', }}/>
 					</View>
 
-					<View style={styles.linhas}/>
+					<View style={{	borderTopWidth: 1, 
+									width: 500, 
+									alignSelf: 'center', 
+									borderColor: '#bfbfbf',}}/>
 
 				</View>
 
@@ -213,4 +223,11 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { updatePerfil, updateNome }) (EditarPerfil);
+export default connect(mapStateToProps, 
+	{ 
+		updatePerfil, 
+		updateNome,
+		updateNomeUsr,
+		updateSite,
+		updateBio,
+	}) (EditarPerfil);
