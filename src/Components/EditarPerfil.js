@@ -165,7 +165,15 @@ class EditarPerfil extends Component {
 					<View style={styles.linhas} />
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Nome</Text>
-						<TextInput value={this.props.nome} onChangeText={texto => this.props.updateNome(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+						<TextInput value={this.props.nome} onChangeText={texto => this.props.updateNome(texto)} placeholder='Seu nome'
+							style={{ 	fontSize: 20, 
+										marginTop: 8, 
+										marginLeft: 45, 
+										borderBottomWidth: 1, 
+										width: 250, 
+										height: 50, 
+										borderColor: '#bfbfbf' }}
+						/>
 					</View>
 
 					<View style={{ flexDirection: 'row', }}>
@@ -174,24 +182,48 @@ class EditarPerfil extends Component {
 							<Text style={{ fontSize: 16, marginLeft: 17, }}>de usuário</Text>
 						</View>
 						<View>
-							<TextInput value={this.props.nome_usr} onChangeText={texto => this.props.updateNomeUsr(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+							<TextInput value={this.props.nome_usr} onChangeText={texto => this.props.updateNomeUsr(texto)} placeholder='Nome da conta'
+								style={{ 	fontSize: 20, 
+											marginTop: 8,
+											marginLeft: 14, 
+											borderBottomWidth: 1, 
+											width: 250, 
+											height: 50, 
+											borderColor: '#bfbfbf' }}
+							/>
 						</View>
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Site</Text>
-						<TextInput placeholder='Seu site' value={this.props.site} onChangeText={texto => this.props.updateSite(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
+						<TextInput placeholder='Seu site' value={this.props.site} onChangeText={texto => this.props.updateSite(texto)} 
+							style={{ 	fontSize: 20, 
+										marginTop: 8, 
+										marginLeft: 61, 
+										borderBottomWidth: 1, 
+										width: 250, 
+										height: 50, 
+										borderColor: '#bfbfbf' }}
+						/>
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 15, marginTop: 20, marginLeft: 17 }}>Bio</Text>
-						<TextInput value={this.props.bio} onChangeText={texto => this.props.updateBio(texto)} style={{ fontSize: 20, marginTop: 8, marginLeft: 66, width: 250, height: 50, borderColor: '#bfbfbf', }}/>
+						<TextInput value={this.props.bio} onChangeText={texto => this.props.updateBio(texto)} placeholder="Descrição da Bio"
+							style={{ 	fontSize: 20, 
+										marginTop: 8, 
+										marginLeft: 66, 
+										width: 250, 
+										height: 50, 
+										borderColor: '#bfbfbf', }}
+						/>
 					</View>
 
 					<View style={{	borderTopWidth: 1, 
 									width: 500, 
 									alignSelf: 'center', 
-									borderColor: '#bfbfbf',}}/>
+									borderColor: '#bfbfbf',}}
+					/>
 
 				</View>
 
