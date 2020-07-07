@@ -138,7 +138,7 @@ class EditarPerfil extends Component {
 
 				<View style={{ height: 65, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#bfbfbf' }}>
 
-					<TouchableOpacity onPress={() => this.props.navigation.navigate('Perfil')} style={{ marginLeft: 7, marginTop: 15 }}>
+					<TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ marginLeft: 7, marginTop: 15 }}>
 						<Text style={{ fontSize: 17, }}>Cancelar</Text>
 					</TouchableOpacity>
 

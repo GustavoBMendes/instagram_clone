@@ -75,7 +75,10 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 		console.log('user ref', userRef);
 			userRef.child(emailUserB64)
 			.update({ foto: photo, nome: nome, nomeUsr: nomeUsr, site: site, descricao: bio })
-			.then( value => uploadSucesso(dispatch, navigation) )
+			.then( () => {
+				let ref = firebase.database().ref('/identificacao/'+nome).child(nomeUsr).set({ 'nome': nome, 'nomeUsr': nomeUsr })
+				.then(value => uploadSucesso(dispatch, navigation))
+			})
 	}
 
 }

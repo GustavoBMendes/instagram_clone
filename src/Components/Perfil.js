@@ -37,8 +37,9 @@ function Informacoes({ item, navigation }) {
 			</View>
 
 			<View style={{ marginLeft: 20, marginTop: 20, marginBottom: 25 }}>
-				<Text style={{ fontWeight: 'bold' }}>Nome</Text>
+				<Text style={{ fontWeight: 'bold' }}>{item.nome}</Text>
 				<Text>{item.descricao}</Text>
+				<Text style={{ color: '#3598f1' }}>{item.site}</Text>
 			</View>
 
 			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil', { foto: item.foto })} 
