@@ -5,14 +5,23 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import Images from '../imgs/index';
-import { infoPerfilUser } from '../Actions/AppActions';
+import { infoPerfilUser, updateNomeUsr } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
-function Informacoes({ item, navigation }) {
+var nomeusr;
+
+function RenderNomeUsr({ nome }) {
+
+	return(
+			<Text style={{ fontWeight: 'bold', justifyContent: 'flex-end', width: 100 }}> {nome} </Text>
+	);
+
+}
+
+function Informacoes({ item, navigation, }) {
 	
 	//Images.foto_perfil = require('../imgs/foto_perfil.png');
-
+	nomeusr = item.nomeUsr;
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
@@ -52,7 +61,7 @@ function Informacoes({ item, navigation }) {
 				}}>
 				<Text style={{ fontWeight: 'bold', textAlign: 'center', borderColor: 'black' }}>Editar perfil</Text>
 			</TouchableOpacity>
-
+			
 		</View>
 	);
 }
@@ -72,8 +81,10 @@ class Perfil extends Component {
 		this.dataSource = info;
 	}
 
-	render() {
 
+
+	render() {
+		
 		return (
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
 
@@ -81,20 +92,24 @@ class Perfil extends Component {
 									backgroundColor: '#fff', 
 									justifyContent: 'space-around', 
 									flexDirection: 'row', 
-									marginLeft: 130,
+									marginLeft: 150,
 									alignItems: 'center'
 								}}
 					>
-						<Text style={{ fontWeight: 'bold', }}>Nome Usuario</Text>
+						<FlatList
+							data={this.dataSource}
+							renderItem={ ({ item }) => <RenderNomeUsr nome={item.nomeUsr} /> }
+							keyExtractor={item => item.nomeUsr}
+						/>
 						
 						<TouchableOpacity onPress={() => firebase.auth().signOut().then(() => { this.props.navigation.navigate('Login') })}>
-							<Image source={require('../imgs/menu.png')} style={{ marginLeft: 70, }}/>
+							<Image source={require('../imgs/menu.png')} style={{ marginRight: 10, }}/>
 						</TouchableOpacity>
 					</View>
 
 				<FlatList 
 					data={this.dataSource}
-					renderItem={ ({ item }) => <Informacoes item={item} navigation={this.props.navigation} /> }
+					renderItem={ ({ item }) => nomeusr = item.nomeUsr && <Informacoes item={item} navigation={this.props.navigation} /> }
 					keyExtractor={item => item.email}
 				/>
 
@@ -113,9 +128,10 @@ const mapStateToProps = state => {
 	});
 	
 	return {
-		info
+		info,
+		nomeUsr: state.InfoPerfilUser.nome_usr,
 	}
 
 }
 
-export default connect(mapStateToProps, { infoPerfilUser }) (Perfil);
+export default connect(mapStateToProps, { infoPerfilUser, updateNomeUsr }) (Perfil);

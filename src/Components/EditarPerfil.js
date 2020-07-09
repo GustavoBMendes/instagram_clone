@@ -81,52 +81,6 @@ class ImagePic extends Component {
 
 }
 
-function Informacoes({ item, nome, nomeUsr, site, bio, updateNome }) {
-
-	Images.foto_perfil = item.foto;
-
-	console.log(Images.foto_perfil);
-
-	return (
-		<View style={{  }}>
-			<View style={{ flexDirection: 'column', alignItems: 'center' }}>
-				
-				<ImagePic />
-
-			</View>
-
-			<View style={styles.linhas} />
-			<View style={{ flexDirection: 'row' }}>
-				<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Nome</Text>
-				<TextInput value={nome} onChangeText={this.updateNome(nome)} style={{ fontSize: 20, marginTop: 8, marginLeft: 45, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
-			</View>
-
-			<View style={{ flexDirection: 'row', }}>
-				<View>
-					<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17, }}>Nome</Text>
-					<Text style={{ fontSize: 16, marginLeft: 17, }}>de usuário</Text>
-				</View>
-				<View>
-					<TextInput value={nomeUsr} style={{ fontSize: 20, marginTop: 8, marginLeft: 14, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
-				</View>
-			</View>
-
-			<View style={{ flexDirection: 'row' }}>
-				<Text style={{ fontSize: 16, marginTop: 20, marginLeft: 17 }}>Site</Text>
-				<TextInput placeholder='Seu site' value={site} style={{ fontSize: 20, marginTop: 8, marginLeft: 61, borderBottomWidth: 1, width: 250, height: 50, borderColor: '#bfbfbf' }}/>
-			</View>
-
-			<View style={{ flexDirection: 'row' }}>
-				<Text style={{ fontSize: 15, marginTop: 20, marginLeft: 17 }}>Bio</Text>
-				<TextInput value={bio} style={{ fontSize: 20, marginTop: 15, marginLeft: 66, }}/>
-			</View>
-
-			<View style={styles.linhas}/>
-
-		</View>
-	);
-}
-
 class EditarPerfil extends Component {
 
 	render() {
