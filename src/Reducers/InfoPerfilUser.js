@@ -5,6 +5,7 @@ import {
 	MODIFICA_NOMEUSR,
 	MODIFICA_SITE,
 	MODIFICA_BIO,
+	SUCESSO_BUSCA,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
 	nome_usr: 'Nome de usuário',
 	site: '',
 	bio: '',
+	usuario_busca: '',
 }
 
 export default ( state = INITIAL_STATE, action ) => {
@@ -36,6 +38,9 @@ export default ( state = INITIAL_STATE, action ) => {
 
 		case MODIFICA_BIO:
 			return { ...state, bio: action.payload };
+
+		case SUCESSO_BUSCA:
+			return { ...state, usuario_busca: action.payload }
 
 		default:
 			return state;

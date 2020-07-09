@@ -9,6 +9,7 @@ import {
 	MODIFICA_NOMEUSR,
 	MODIFICA_SITE,
 	MODIFICA_BIO,
+	SUCESSO_BUSCA,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -86,5 +87,22 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 const uploadSucesso = (dispatch, navigation) => {
 
 	navigation.navigate('Perfil');
+
+}
+
+export const searchUser = (nome, nomeUsr) => {
+
+	return dispatch => {
+
+		firebase.database().ref('/identificacao/'+nome)
+			.then(value => buscaSucesso(dispatch))
+
+	}
+
+}
+
+const buscaSucesso = (dispatch) => {
+
+	dispatch ({	type: SUCESSO_BUSCA, payload: 'Sucesso' });
 
 }

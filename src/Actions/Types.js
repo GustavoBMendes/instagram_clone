@@ -12,3 +12,4 @@ export const MODIFICA_NOME = 'modifica_nome';
 export const MODIFICA_NOMEUSR = 'modifica_nomeusr';
 export const MODIFICA_SITE = 'modifica_site';
 export const MODIFICA_BIO = 'modifica_bio';
+export const SUCESSO_BUSCA = 'sucesso_busca';
