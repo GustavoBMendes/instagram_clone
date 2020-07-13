@@ -10,6 +10,7 @@ import {
 	MODIFICA_SITE,
 	MODIFICA_BIO,
 	SUCESSO_BUSCA,
+	ERRO_BUSCA,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -77,7 +78,7 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 			userRef.child(emailUserB64)
 			.update({ foto: photo, nome: nome, nomeUsr: nomeUsr, site: site, descricao: bio })
 			.then( () => {
-				let ref = firebase.database().ref('/identificacao/'+nome).child(nomeUsr).set({ 'nome': nome, 'nomeUsr': nomeUsr })
+				let ref = firebase.database().ref('/identificacao/').child(nomeUsr).set({ 'nome': nome, 'nomeUsr': nomeUsr })
 				.then(value => uploadSucesso(dispatch, navigation))
 			})
 	}
@@ -95,8 +96,53 @@ export const searchUser = (nome, nomeUsr) => {
 	return dispatch => {
 
 		firebase.database().ref('/identificacao/'+nome)
-			.then(value => buscaSucesso(dispatch))
+			.child(nomeUsr)
+			.once('value')
+			.then(snapshot => {
+				
+				if(snapshot.val()) {
+					buscaSucesso(dispatch);
+				}
 
+				else {
+					dispatch({
+						type: ERRO_BUSCA,
+						payload: 'Usuário não encontrado',
+					})
+				}
+
+			})
+			//.catch(erro => erroSearch(erro.message, dispatch))
+
+
+		/*
+
+		let emailB64 = b64.encode(email);
+
+		firebase.database().ref('/identificacao/'+nome)
+			.once('value')
+			.then(snapshot => {
+				if(snapshot.val()) {
+
+					const dadosUsuario = _.first(_.values(snapshot.val()));
+
+					const { currentUser } = firebase.auth();
+					let emailUsuarioB64 = b64.encode(currentUser.email);
+
+					firebase.database().ref('/contatos/'+emailUsuarioB64).child(emailUsuarioB64)
+						.push({ email, nome: dadosUsuario.nome })
+						.then(() => adicionaContatoSucesso(dispatch))
+						.catch(erro => adicionaContatoErro(erro.message, dispatch))
+
+				}
+				else{
+					dispatch({ 
+						type: ADICIONA_CONTATO_ERRO, 
+						payload: 'E-mail informado não corresponde a um usuário cadastrado.' 
+					})
+				}
+			})
+		*/
 	}
 
 }
@@ -104,5 +150,11 @@ export const searchUser = (nome, nomeUsr) => {
 const buscaSucesso = (dispatch) => {
 
 	dispatch ({	type: SUCESSO_BUSCA, payload: 'Sucesso' });
+
+}
+
+const erroSearch = (dispatch) => {
+
+	dispatch ({ type: ERRO_BUSCA, payload: 'Usuário não encontrado' });
 
 }

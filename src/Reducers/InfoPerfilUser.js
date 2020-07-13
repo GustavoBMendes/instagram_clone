@@ -6,15 +6,17 @@ import {
 	MODIFICA_SITE,
 	MODIFICA_BIO,
 	SUCESSO_BUSCA,
+	ERRO_BUSCA,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
 	update_photo: '',
 	nome: 'Seu Nome',
-	nome_usr: 'Nome de usuário',
+	nome_usr: '',
 	site: '',
 	bio: '',
 	usuario_busca: '',
+	search_erro: '',
 }
 
 export default ( state = INITIAL_STATE, action ) => {
@@ -40,7 +42,11 @@ export default ( state = INITIAL_STATE, action ) => {
 			return { ...state, bio: action.payload };
 
 		case SUCESSO_BUSCA:
-			return { ...state, usuario_busca: action.payload }
+			console.log(action.payload);
+			return { ...state, usuario_busca: action.payload, search_erro: '', }
+
+		case ERRO_BUSCA:
+			return { ...state, search_erro: action.payload }
 
 		default:
 			return state;
