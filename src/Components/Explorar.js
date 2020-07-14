@@ -34,6 +34,7 @@ class Explorar extends Component {
 
 				<View>
 					<Text>{this.props.msg_erro}</Text>
+					<Text>{this.props.usuario_busca}</Text>
 				</View>
 
 			</View>
@@ -49,6 +50,7 @@ const mapStateToProps = state => {
 		
 		nome_usr: state.InfoPerfilUser.nome_usr,
 		msg_erro: state.InfoPerfilUser.search_erro,
+		usuario_busca: state.InfoPerfilUser.usuario_busca,
 
 	}
 

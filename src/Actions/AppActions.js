@@ -96,12 +96,13 @@ export const searchUser = (nome, nomeUsr) => {
 	return dispatch => {
 
 		firebase.database().ref('/identificacao/'+nome)
-			.child(nomeUsr)
 			.once('value')
 			.then(snapshot => {
 				
 				if(snapshot.val()) {
-					buscaSucesso(dispatch);
+					
+					const dadosUsuario = _.first(_.values(snapshot.val()));
+					buscaSucesso(dispatch, dadosUsuario.nomeUsr);
 				}
 
 				else {
@@ -114,42 +115,13 @@ export const searchUser = (nome, nomeUsr) => {
 			})
 			//.catch(erro => erroSearch(erro.message, dispatch))
 
-
-		/*
-
-		let emailB64 = b64.encode(email);
-
-		firebase.database().ref('/identificacao/'+nome)
-			.once('value')
-			.then(snapshot => {
-				if(snapshot.val()) {
-
-					const dadosUsuario = _.first(_.values(snapshot.val()));
-
-					const { currentUser } = firebase.auth();
-					let emailUsuarioB64 = b64.encode(currentUser.email);
-
-					firebase.database().ref('/contatos/'+emailUsuarioB64).child(emailUsuarioB64)
-						.push({ email, nome: dadosUsuario.nome })
-						.then(() => adicionaContatoSucesso(dispatch))
-						.catch(erro => adicionaContatoErro(erro.message, dispatch))
-
-				}
-				else{
-					dispatch({ 
-						type: ADICIONA_CONTATO_ERRO, 
-						payload: 'E-mail informado não corresponde a um usuário cadastrado.' 
-					})
-				}
-			})
-		*/
 	}
 
 }
 
-const buscaSucesso = (dispatch) => {
+const buscaSucesso = (dispatch, nomeUsr) => {
 
-	dispatch ({	type: SUCESSO_BUSCA, payload: 'Sucesso' });
+	dispatch ({	type: SUCESSO_BUSCA, payload: nomeUsr });
 
 }
 

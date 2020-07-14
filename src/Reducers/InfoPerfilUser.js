@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 }
 
 export default ( state = INITIAL_STATE, action ) => {
-	console.log('action ', action.payload);
+	
 	switch(action.type) {
 
 		case INFO_PERFIL_USER:
@@ -42,7 +42,6 @@ export default ( state = INITIAL_STATE, action ) => {
 			return { ...state, bio: action.payload };
 
 		case SUCESSO_BUSCA:
-			console.log(action.payload);
 			return { ...state, usuario_busca: action.payload, search_erro: '', }
 
 		case ERRO_BUSCA:
