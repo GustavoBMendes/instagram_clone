@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
+import b64 from 'base-64';
 
 import { infoPerfilUser, updateNomeUsr } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
@@ -69,7 +70,9 @@ function Informacoes({ item, navigation, }) {
 class Perfil extends Component {
 
 	UNSAFE_componentWillMount() {
-		this.props.infoPerfilUser();
+		const { currentUser } = firebase.auth();
+		const emailUser = b64.encode(currentUser.email);
+		this.props.infoPerfilUser(emailUser);
 		this.criaFonteDeDados(this.props.info);
 	}
 

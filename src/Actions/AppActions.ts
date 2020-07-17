@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import b64 from 'base-64';
 import _ from 'lodash';
+import { Dispatch } from 'redux';
+import { AppActionTypes } from './actionsTypes';
 
 import {
 	INFO_PERFIL_USER,
@@ -13,16 +15,15 @@ import {
 	ERRO_BUSCA,
 } from './Types';
 
-export const infoPerfilUser = () => {
 
-	const { currentUser } = firebase.auth();
-	return dispatch => {
 
-		const emailUserB64 = b64.encode( currentUser.email );
+export const infoPerfilUser = (emailUserB64: string) => {
+
+	return (dispatch: Dispatch<AppActionTypes>) => {
 
 		firebase.database().ref('/contatos/'+emailUserB64)
 			.once('value', snapshot => {
-				dispatch({ type: INFO_PERFIL_USER, payload: snapshot.val() })
+				return dispatch({ type: INFO_PERFIL_USER, info: snapshot.val() })
 			}).then(function(snapshot) {
 				var email = (snapshot.val());
 				console.log('email', email);
@@ -32,47 +33,46 @@ export const infoPerfilUser = () => {
 
 }
 
-export const updateNome = (nome) => {
 
-	return dispatch => {
-		dispatch({ type: MODIFICA_NOME, payload: nome });
+
+export const updateNome = (nome: string) => {
+
+	return (dispatch: Dispatch<AppActionTypes>) => {
+		dispatch({type:MODIFICA_NOME, nome});
 	}
 
 }
 
-export const updateNomeUsr = (nomeUsr) => {
+export const updateNomeUsr = (nomeUsr: string) => {
 
-	return dispatch => {
-		dispatch({ type: MODIFICA_NOMEUSR, payload: nomeUsr });
+	return (dispatch: Dispatch<AppActionTypes>) => {
+		dispatch({ type: MODIFICA_NOMEUSR, nomeUsr });
 	}
 
 }
 
-export const updateSite = (site) => {
+export const updateSite = (site: any) => {
 
-	return dispatch => {
-		dispatch({ type: MODIFICA_SITE, payload: site });
+	return (dispatch: Dispatch<AppActionTypes>) => {
+		dispatch({ type: MODIFICA_SITE, site });
 	}
 
 }
 
-export const updateBio = (bio) => {
+export const updateBio = (bio: any) => {
 
-	return dispatch => {
-		dispatch({ type: MODIFICA_BIO, payload: bio });
+	return (dispatch: Dispatch<AppActionTypes>) => {
+		dispatch({ type: MODIFICA_BIO, bio });
 	}
 
 }
 
-export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
+export const updatePerfil = (photo: any, navigation: any, nome: any, nomeUsr: string, site: any, bio: any, emailUserB64: string) => {
 
-	const { currentUser } = firebase.auth();
-	const emailUserB64 = b64.encode( currentUser.email );
 	console.log('email ', emailUserB64);
 
-	return dispatch => {
+	return (dispatch: (arg0: { type: string; }) => void) => {
 		console.log('foi ', photo);
-		dispatch({ type: UPDATE_FOTO })
 		let userRef = firebase.database().ref('/contatos/'+emailUserB64);
 		console.log('user ref', userRef);
 			userRef.child(emailUserB64)
@@ -85,15 +85,17 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 
 }
 
-const uploadSucesso = (dispatch, navigation) => {
+const uploadSucesso = (dispatch: any, navigation: { navigate: (arg0: string) => void; }) => {
 
 	navigation.navigate('Perfil');
 
 }
 
-export const searchUser = (nome, nomeUsr) => {
+export const searchUser = (nome: string) => {
 
-	return dispatch => {
+	const msg = 'Usuário não encontrado';
+
+	return (dispatch: Dispatch<AppActionTypes>) => {
 
 		firebase.database().ref('/identificacao/'+nome)
 			.once('value')
@@ -108,7 +110,7 @@ export const searchUser = (nome, nomeUsr) => {
 				else {
 					dispatch({
 						type: ERRO_BUSCA,
-						payload: 'Usuário não encontrado',
+						msg
 					})
 				}
 
@@ -119,13 +121,13 @@ export const searchUser = (nome, nomeUsr) => {
 
 }
 
-const buscaSucesso = (dispatch, nomeUsr) => {
+const buscaSucesso = (dispatch: Dispatch<AppActionTypes>, nomeUsr: any) => {
 
-	dispatch ({	type: SUCESSO_BUSCA, payload: nomeUsr });
+	dispatch ({	type: SUCESSO_BUSCA, nomeUsr });
 
 }
 
-const erroSearch = (dispatch) => {
+const erroSearch = (dispatch: (arg0: { type: string; payload: string; }) => void) => {
 
 	dispatch ({ type: ERRO_BUSCA, payload: 'Usuário não encontrado' });
 

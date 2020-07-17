@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase';
+import b64 from 'base-64';
 
 import Images from '../imgs/index';
 import { 
@@ -86,6 +88,8 @@ class EditarPerfil extends Component {
 	render() {
 		const { route } = this.props;
 		var { foto } = route.params;
+		const { currentUser } = firebase.auth();
+		const emailUser = b64.encode(currentUser.email);
 		return (
 			
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
@@ -101,7 +105,7 @@ class EditarPerfil extends Component {
 					</TouchableOpacity>
 
 					<TouchableOpacity onPress={() => 
-							this.props.updatePerfil(foto, this.props.navigation, this.props.nome, this.props.nome_usr, this.props.site, this.props.bio)} 
+							this.props.updatePerfil(foto, this.props.navigation, this.props.nome, this.props.nome_usr, this.props.site, this.props.bio, emailUser)} 
 							style={{ marginRight: 7, marginTop: 15 }}
 					>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: 'bold', }}>Concluir</Text>
