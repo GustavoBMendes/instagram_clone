@@ -26,16 +26,24 @@ class Explorar extends Component {
 						
 					</View>
 
-					<TouchableOpacity onPress={ () => this.props.searchUser('Moacir', this.props.nome_usr) } style={{ marginTop: 20, marginRight: 10, }}>
-						<Text>Buscar</Text>
+					<TouchableOpacity onPress={ () => this.props.searchUser('Moacir', this.props.nome_usr) } style={{ marginTop: 20, marginRight: 15, }}>
+						<Text style={{ fontSize: 18 }}>Buscar</Text>
 					</TouchableOpacity>
 
 				</View>
 
-				<View>
-					<Text>{this.props.msg_erro}</Text>
-					<Text>{this.props.usuario_busca}</Text>
-				</View>
+				<TouchableOpacity onPress={ () => false }>
+					<View>
+						<Text>{this.props.msg_erro}</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<Image source={{ uri: this.props.update_photo }} style={{ width: 44, height: 44, borderRadius: 100, marginLeft: 15 }}/>
+							<View style={{ alignSelf: 'center', marginLeft: 10 }}>
+								<Text style={{ fontWeight: 'bold' }}>{this.props.usuario_busca}</Text>
+								<Text style={{ color: '#bfbfbf' }}>{this.props.nome}</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableOpacity>
 
 			</View>
 		)
@@ -48,6 +56,8 @@ const mapStateToProps = state => {
 
 	return {
 		
+		update_photo: state.InfoPerfilUser.update_photo,
+		nome: state.InfoPerfilUser.nome,
 		nome_usr: state.InfoPerfilUser.nome_usr,
 		msg_erro: state.InfoPerfilUser.search_erro,
 		usuario_busca: state.InfoPerfilUser.usuario_busca,
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fafafa', 
 		marginLeft: 15,
 		marginRight: 15, 
-		marginTop: 20, 
+		marginTop: 15, 
 		borderColor: '#f5f5f5', 
 		borderWidth: 1, 
 		borderRadius: 10, 
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		marginLeft: 10,
 		height: 30,
-		width: 250,
+		width: 240,
 	}
 
 })

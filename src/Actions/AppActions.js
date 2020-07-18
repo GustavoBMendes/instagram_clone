@@ -102,7 +102,8 @@ export const searchUser = (nome, nomeUsr) => {
 				if(snapshot.val()) {
 					
 					const dadosUsuario = _.first(_.values(snapshot.val()));
-					buscaSucesso(dispatch, dadosUsuario.nomeUsr);
+					buscaSucesso(dispatch, dadosUsuario.nomeUsr, dadosUsuario.nome, dadosUsuario.foto);
+
 				}
 
 				else {
@@ -119,9 +120,9 @@ export const searchUser = (nome, nomeUsr) => {
 
 }
 
-const buscaSucesso = (dispatch, nomeUsr) => {
+const buscaSucesso = (dispatch, nomeUsr, nome, foto) => {
 
-	dispatch ({	type: SUCESSO_BUSCA, payload: nomeUsr });
+	dispatch ({	type: SUCESSO_BUSCA, payload: { nomeUsr, nome, foto } });
 
 }
 

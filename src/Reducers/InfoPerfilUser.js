@@ -42,7 +42,7 @@ export default ( state = INITIAL_STATE, action ) => {
 			return { ...state, bio: action.payload };
 
 		case SUCESSO_BUSCA:
-			return { ...state, usuario_busca: action.payload, search_erro: '', }
+			return { ...state, usuario_busca: action.payload.nomeUsr, search_erro: '', nome: action.payload.nome, update_photo: action.payload.foto }
 
 		case ERRO_BUSCA:
 			return { ...state, search_erro: action.payload }
