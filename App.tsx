@@ -16,7 +16,7 @@ import firebase from './src/Firebase';
 import ReduxThunk from 'redux-thunk';
 
 import Routes from './src/Routes';
-import reducers from './src/Reducers/';
+import { store } from './src/Reducers';
 
 class App extends Component {
   /*
@@ -38,7 +38,7 @@ class App extends Component {
     firebase;
     return (
       <NavigationContainer>
-        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+        <Provider store={store}>
           <Routes />
         </Provider>
       </NavigationContainer>
