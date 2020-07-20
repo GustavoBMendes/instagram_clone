@@ -11,7 +11,7 @@ import {
 
 const INITIAL_STATE = {
 	update_photo: '',
-	nome: 'Seu Nome',
+	nome: '',
 	nome_usr: '',
 	site: '',
 	bio: '',

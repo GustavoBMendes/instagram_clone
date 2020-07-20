@@ -26,7 +26,7 @@ class Explorar extends Component {
 						
 					</View>
 
-					<TouchableOpacity onPress={ () => this.props.searchUser('Moacir', this.props.nome_usr) } style={{ marginTop: 20, marginRight: 15, }}>
+					<TouchableOpacity onPress={ () => this.props.searchUser(this.props.nome_usr) } style={{ marginTop: 20, marginRight: 15, }}>
 						<Text style={{ fontSize: 18 }}>Buscar</Text>
 					</TouchableOpacity>
 

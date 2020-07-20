@@ -22,6 +22,7 @@ function Informacoes({ item, navigation, }) {
 	
 	//Images.foto_perfil = require('../imgs/foto_perfil.png');
 	nomeusr = item.nomeUsr;
+	
 	return (
 		<View style={{  }}>
 			<View style={{ flexDirection: 'row' }}>
@@ -51,7 +52,7 @@ function Informacoes({ item, navigation, }) {
 				<Text style={{ color: '#3598f1' }}>{item.site}</Text>
 			</View>
 
-			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil', { foto: item.foto })} 
+			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil', { foto: item.foto, nomeUsrAnterior: nomeusr})} 
 				style={{height: 25, 
 						marginHorizontal: 20, 
 						borderRadius: 3, 

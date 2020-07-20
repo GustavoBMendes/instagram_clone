@@ -64,12 +64,12 @@ export const updateBio = (bio) => {
 
 }
 
-export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
+export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio, nomeUsrAnterior) => {
 
 	const { currentUser } = firebase.auth();
 	const emailUserB64 = b64.encode( currentUser.email );
 	console.log('email ', emailUserB64);
-
+	console.log('anterior', nomeUsrAnterior);
 	return dispatch => {
 		console.log('foi ', photo);
 		dispatch({ type: UPDATE_FOTO })
@@ -78,24 +78,29 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio) => {
 			userRef.child(emailUserB64)
 			.update({ foto: photo, nome: nome, nomeUsr: nomeUsr, site: site, descricao: bio })
 			.then( () => {
-				let ref = firebase.database().ref('/identificacao/').child(nomeUsr).set({ 'nome': nome, 'nomeUsr': nomeUsr })
-				.then(value => uploadSucesso(dispatch, navigation))
+				firebase.database().ref('/identificacao/').child(nomeUsr).child(nome).set({ 'nome': nome, 'nomeUsr': nomeUsr, 'foto': photo })
+				.then(value => uploadSucesso(dispatch, navigation, nomeUsrAnterior))
 			})
+			
 	}
 
 }
 
-const uploadSucesso = (dispatch, navigation) => {
+const uploadSucesso = (dispatch, navigation, nomeUsrAnterior) => {
+	console.log('excluindo no firebase', nomeUsrAnterior);
+	if(nomeUsrAnterior !== '') {
+		firebase.database().ref('identificacao').child(nomeUsrAnterior).remove();
+	}
 
-	navigation.navigate('Perfil');
+	navigation.goBack();
 
 }
 
-export const searchUser = (nome, nomeUsr) => {
+export const searchUser = (nomeUsr) => {
 
 	return dispatch => {
 
-		firebase.database().ref('/identificacao/'+nome)
+		firebase.database().ref('/identificacao/'+nomeUsr)
 			.once('value')
 			.then(snapshot => {
 				

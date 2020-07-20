@@ -85,7 +85,8 @@ class EditarPerfil extends Component {
 
 	render() {
 		const { route } = this.props;
-		var { foto } = route.params;
+		var { foto, nomeUsrAnterior } = route.params;
+		console.log('teste nome anterior ', nomeUsrAnterior);
 		return (
 			
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
@@ -101,7 +102,7 @@ class EditarPerfil extends Component {
 					</TouchableOpacity>
 
 					<TouchableOpacity onPress={() => 
-							this.props.updatePerfil(foto, this.props.navigation, this.props.nome, this.props.nome_usr, this.props.site, this.props.bio)} 
+							this.props.updatePerfil(foto, this.props.navigation, this.props.nome, this.props.nome_usr, this.props.site, this.props.bio, nomeUsrAnterior)} 
 							style={{ marginRight: 7, marginTop: 15 }}
 					>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: 'bold', }}>Concluir</Text>
