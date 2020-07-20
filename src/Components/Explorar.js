@@ -32,7 +32,7 @@ class Explorar extends Component {
 
 				</View>
 
-				<TouchableOpacity onPress={ () => false }>
+				<TouchableOpacity onPress={ () => this.props.navigation.navigate('Perfil Visitante', { nomeUsuario: this.props.nome_usr }) }>
 					<View>
 						<Text>{this.props.msg_erro}</Text>
 						<View style={{ flexDirection: 'row' }}>

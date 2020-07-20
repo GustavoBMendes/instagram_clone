@@ -9,6 +9,7 @@ import Cadastro from './Components/Cadastro';
 import Feed from './Components/Feed';
 import Perfil from './Components/Perfil';
 import EditarPerfil from './Components/EditarPerfil';
+import PerfilVisitante from './Components/PerfilVisitante';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +76,14 @@ export default class Routes extends Component {
 				<Stack.Screen
 					name='Editar Perfil'
 					component={EditarPerfil}
+					options={{
+						headerShown: false,
+					}}
+				/>
+
+				<Stack.Screen
+					name='Perfil Visitante'
+					component={PerfilVisitante}
 					options={{
 						headerShown: false,
 					}}
