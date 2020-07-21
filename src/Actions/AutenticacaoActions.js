@@ -40,7 +40,7 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 				var ref = firebase.database().ref('/contatos/'+emailb64);
 
 				var usersRef = ref.child(emailb64);
-					usersRef.set({'email': email, 'posts': 0, 'seguidores': 0, 'seguindo': 0, 'descricao': "", 'nome': '', 'nomeUsr': '', 'site': '', 'foto': '../imgs/foto_perfil.svg' })
+					usersRef.set({'email': email, 'posts': 0, 'seguidores': 0, 'seguindo': 0, 'descricao': " ", 'nome': ' ', 'nomeUsr': ' ', 'site': ' ', 'foto': '../imgs/foto_perfil.svg' })
 					.then( value => cadastroSucesso(dispatch, navigation) )
 			})
 			.catch(erro => cadastroErro(erro, dispatch));
@@ -52,7 +52,7 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 const cadastroSucesso = ( dispatch, navigation ) => {
 	dispatch ({	type: SUCESSO_CADASTRO, payload: 'Sucesso' });
 
-	navigation.navigate('Editar Perfil');
+	navigation.navigate('Perfil');
 }
 
 const cadastroErro = (erro, dispatch) => {

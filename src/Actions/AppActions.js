@@ -24,6 +24,7 @@ export const infoPerfilUser = () => {
 			.once('value', snapshot => {
 				dispatch({ type: INFO_PERFIL_USER, payload: snapshot.val() })
 			}).then(function(snapshot) {
+				//teste
 				var email = (snapshot.val());
 				console.log('email', email);
 			})
@@ -78,7 +79,7 @@ export const updatePerfil = (photo, navigation, nome, nomeUsr, site, bio, nomeUs
 			userRef.child(emailUserB64)
 			.update({ foto: photo, nome: nome, nomeUsr: nomeUsr, site: site, descricao: bio })
 			.then( () => {
-				firebase.database().ref('/identificacao/').child(nomeUsr).child('info').set({ 'nome': nome, 'nomeUsr': nomeUsr, 'foto': photo })
+				firebase.database().ref('/identificacao/').child(nomeUsr).child('info').set({ 'nome': nome, 'nomeUsr': nomeUsr, 'foto': photo, 'email': emailUserB64 })
 				.then(value => uploadSucesso(dispatch, navigation, nomeUsrAnterior))
 			})
 			
@@ -135,4 +136,23 @@ const erroSearch = (dispatch) => {
 
 	dispatch ({ type: ERRO_BUSCA, payload: 'Usuário não encontrado' });
 
+}
+
+export const infoPerfilVisitante = (nomeUsr) => {
+
+	return dispatch => {
+		firebase.database().ref('/identificacao/'+nomeUsr)
+				.once('value')
+				.then(snapshot => {
+					
+					if(snapshot.val()) {
+						const dadosUsuario = _.first(_.values(snapshot.val()));
+						firebase.database().ref('/contatos/'+dadosUsuario.email)
+							.once('value', snapshot => {
+								console.log('teste', snapshot.val());
+								dispatch({ type: INFO_PERFIL_USER, payload: snapshot.val() })
+							})
+					}
+				})
+	}
 }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import { infoPerfilUser, updateNomeUsr } from '../Actions/AppActions';
+import { infoPerfilVisitante, updateNomeUsr } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 var nomeusr;
@@ -76,10 +76,12 @@ function Informacoes({ item, navigation, }) {
 	);
 }
 
-class Perfil extends Component {
+class PerfilVisitante extends Component {
 
 	UNSAFE_componentWillMount() {
-		this.props.infoPerfilUser();
+		const { route } = this.props;
+		const { nomeUsuario } = route.params;
+		this.props.infoPerfilVisitante(nomeUsuario);
 		this.criaFonteDeDados(this.props.info);
 	}
 
@@ -90,7 +92,7 @@ class Perfil extends Component {
 	criaFonteDeDados(info) {
 		this.dataSource = info;
 	}
-
+	
 	render() {
 		
 		return (
@@ -142,4 +144,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { infoPerfilUser, updateNomeUsr }) (Perfil);
+export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr }) (PerfilVisitante);

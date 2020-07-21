@@ -8,6 +8,35 @@ import Images from '../imgs/index';
 
 class Explorar extends Component {
 
+	renderUsr() {
+
+		if((this.props.update_photo && this.props.usuario_busca && this.props.nome) !== '') {
+			
+			return(
+				<TouchableOpacity onPress={ () => this.props.navigation.navigate('Perfil Visitante', { nomeUsuario: this.props.nome_usr }) }>
+					<View>
+						<Text>{this.props.msg_erro}</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<Image source={{ uri: this.props.update_photo }} style={{ width: 44, height: 44, borderRadius: 100, marginLeft: 15 }}/>
+							<View style={{ alignSelf: 'center', marginLeft: 10 }}>
+								<Text style={{ fontWeight: 'bold' }}>{this.props.usuario_busca}</Text>
+								<Text style={{ color: '#bfbfbf' }}>{this.props.nome}</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableOpacity>
+			);
+
+		}
+
+		else {
+			return(
+				<View />
+			);
+		}
+
+	}
+
 	render() {
 
 		return (
@@ -32,18 +61,7 @@ class Explorar extends Component {
 
 				</View>
 
-				<TouchableOpacity onPress={ () => this.props.navigation.navigate('Perfil Visitante', { nomeUsuario: this.props.nome_usr }) }>
-					<View>
-						<Text>{this.props.msg_erro}</Text>
-						<View style={{ flexDirection: 'row' }}>
-							<Image source={{ uri: this.props.update_photo }} style={{ width: 44, height: 44, borderRadius: 100, marginLeft: 15 }}/>
-							<View style={{ alignSelf: 'center', marginLeft: 10 }}>
-								<Text style={{ fontWeight: 'bold' }}>{this.props.usuario_busca}</Text>
-								<Text style={{ color: '#bfbfbf' }}>{this.props.nome}</Text>
-							</View>
-						</View>
-					</View>
-				</TouchableOpacity>
+				{this.renderUsr()}
 
 			</View>
 		)
