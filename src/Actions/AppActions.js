@@ -11,6 +11,7 @@ import {
 	MODIFICA_BIO,
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
+	INFO_PERFIL_VISITANTE,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -150,7 +151,7 @@ export const infoPerfilVisitante = (nomeUsr) => {
 						firebase.database().ref('/contatos/'+dadosUsuario.email)
 							.once('value', snapshot => {
 								console.log('teste', snapshot.val());
-								dispatch({ type: INFO_PERFIL_USER, payload: snapshot.val() })
+								dispatch({ type: INFO_PERFIL_VISITANTE, payload: snapshot.val() })
 							})
 					}
 				})

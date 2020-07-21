@@ -133,7 +133,7 @@ class PerfilVisitante extends Component {
 
 const mapStateToProps = state => {
 
-	const info = _.map(state.InfoPerfilUser, (val, uid) => {
+	const info = _.map(state.InfoPerfilVisitante, (val, uid) => {
 		return { ...val, uid };
 	});
 	
