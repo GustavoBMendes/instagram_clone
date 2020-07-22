@@ -147,30 +147,44 @@ export const infoPerfilVisitante = (nomeUsr) => {
 				.then(snapshot => {
 					
 					if(snapshot.val()) {
+
 						const dadosUsuario = _.first(_.values(snapshot.val()));
+
 						firebase.database().ref('/contatos/'+dadosUsuario.email)
 							.once('value', snapshot => {
 								console.log('teste', snapshot.val());
 								dispatch({ type: INFO_PERFIL_VISITANTE, payload: snapshot.val() })
 							})
+
 					}
 				})
 	}
 }
 
-export const seguirPerfil = (emailPerfil, nomeUsrPerfil, nome) => {
+export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVisitado) => {
 
 	const { currentUser } = firebase.auth();
-	const emailUser = b64.encode( currentUser.email );
+	const emailUserLogado = b64.encode( currentUser.email );
 
 	return dispatch => {
 
-		firebase.database().ref('/contatos/'+emailUser).child('seguindo').child(nomeUsrPerfil)
-			.set({ 'nome': nome })
+		firebase.database().ref('/contatos/'+emailUserLogado).child('seguindo').child(emailPerfilVisitado)
+			.set({ 'nome': nomeVisitado, 'nomeUsr': nomeUsrPerfilVisitado })
 			.then( () => {
-				firebase.database().ref('/contatos/'+emailPerfil).child('seguidores').child(emailUser)
-				.set({ 'nome': nomeUser })
-				.then(value => sucessoSeguir(dispatch))
+
+				firebase.database().ref('/contatos/'+emailUserLogado)
+				.once('value')
+				.then(snapshot => {
+					
+					if(snapshot.val()) {
+
+						const dadosUsuario = _.first(_.values(snapshot.val()));
+						firebase.database().ref('/contatos/'+emailPerfilVisitado).child('seguidores').child(emailUserLogado)
+						.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr })
+						.then(value => sucessoSeguir(dispatch))
+
+					}
+				})
 			})
 
 
