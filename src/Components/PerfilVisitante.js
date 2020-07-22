@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import { infoPerfilVisitante, updateNomeUsr } from '../Actions/AppActions';
+import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 var nomeusr;
@@ -14,24 +14,6 @@ function RenderNomeUsr({ nome }) {
 
 	return(
 			<Text style={{ fontWeight: 'bold', justifyContent: 'flex-end', width: 100 }}> {nome} </Text>
-	);
-
-}
-
-function renderBtn({ navigation }) {
-
-	return(
-		<TouchableOpacity onPress={() => false} 
-			style={{height: 25, 
-					marginHorizontal: 20, 
-					borderRadius: 3, 
-					borderWidth: 1 ,
-					borderColor: '#fff', 
-					justifyContent: 'center',
-					backgroundColor: '#3598f1',
-			}}>
-			<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguir</Text>
-		</TouchableOpacity>
 	);
 
 }
@@ -64,13 +46,11 @@ function Informacoes({ item, navigation, }) {
 				</View>
 			</View>
 
-			<View style={{ marginLeft: 20, marginTop: 20, marginBottom: 25 }}>
+			<View style={{ marginLeft: 20, marginTop: 20, }}>
 				<Text style={{ fontWeight: 'bold' }}>{item.nome}</Text>
 				<Text>{item.descricao}</Text>
 				<Text style={{ color: '#3598f1' }}>{item.site}</Text>
 			</View>
-
-			{renderBtn(navigation)}
 			
 		</View>
 	);
@@ -91,6 +71,27 @@ class PerfilVisitante extends Component {
 
 	criaFonteDeDados(info) {
 		this.dataSource = info;
+	}
+
+	renderBtn() {
+
+		const { route } = this.props;
+		const { email } = route.params;
+
+		return(
+			<TouchableOpacity onPress={() => this.props.seguirPerfil()} 
+				style={{height: 25, 
+						marginHorizontal: 20, 
+						borderRadius: 3, 
+						borderWidth: 1 ,
+						borderColor: '#fff', 
+						justifyContent: 'center',
+						backgroundColor: '#3598f1',
+				}}>
+				<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguir</Text>
+			</TouchableOpacity>
+		);
+	
 	}
 	
 	render() {
@@ -123,6 +124,8 @@ class PerfilVisitante extends Component {
 					keyExtractor={item => item.email}
 				/>
 
+				{this.renderBtn()}
+
 				<PerfilFotos />
 
 			</View>
@@ -144,4 +147,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr }) (PerfilVisitante);
+export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr, seguirPerfil }) (PerfilVisitante);

@@ -109,7 +109,7 @@ export const searchUser = (nomeUsr) => {
 				if(snapshot.val()) {
 					
 					const dadosUsuario = _.first(_.values(snapshot.val()));
-					buscaSucesso(dispatch, dadosUsuario.nomeUsr, dadosUsuario.nome, dadosUsuario.foto);
+					buscaSucesso(dispatch, dadosUsuario.nomeUsr, dadosUsuario.nome, dadosUsuario.foto, dadosUsuario.email);
 
 				}
 
@@ -127,9 +127,9 @@ export const searchUser = (nomeUsr) => {
 
 }
 
-const buscaSucesso = (dispatch, nomeUsr, nome, foto) => {
+const buscaSucesso = (dispatch, nomeUsr, nome, foto, email) => {
 
-	dispatch ({	type: SUCESSO_BUSCA, payload: { nomeUsr, nome, foto } });
+	dispatch ({	type: SUCESSO_BUSCA, payload: { nomeUsr, nome, foto, email } });
 
 }
 
@@ -156,4 +156,30 @@ export const infoPerfilVisitante = (nomeUsr) => {
 					}
 				})
 	}
+}
+
+export const seguirPerfil = (emailPerfil, nomeUsrPerfil, nome) => {
+
+	const { currentUser } = firebase.auth();
+	const emailUser = b64.encode( currentUser.email );
+
+	return dispatch => {
+
+		firebase.database().ref('/contatos/'+emailUser).child('seguindo').child(nomeUsrPerfil)
+			.set({ 'nome': nome })
+			.then( () => {
+				firebase.database().ref('/contatos/'+emailPerfil).child('seguidores').child(emailUser)
+				.set({ 'nome': nomeUser })
+				.then(value => sucessoSeguir(dispatch))
+			})
+
+
+	}
+
+}
+
+const sucessoSeguir = (dispatch) => {
+
+	dispatch({ type: 'sucesso_seguir', payload: 'sucesso' })
+
 }
