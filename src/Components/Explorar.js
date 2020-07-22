@@ -13,7 +13,7 @@ class Explorar extends Component {
 		if((this.props.update_photo && this.props.usuario_busca && this.props.nome) !== '') {
 			
 			return(
-				<TouchableOpacity onPress={ () => this.props.navigation.navigate('Perfil Visitante', { nomeUsuario: this.props.nome_usr, email: this.props.email }) }>
+				<TouchableOpacity onPress={ () => this.props.navigation.navigate('Perfil Visitante', { nomeUsuario: this.props.nome_usr, email: this.props.email, nome: this.props.nome }) }>
 					<View>
 						<Text>{this.props.msg_erro}</Text>
 						<View style={{ flexDirection: 'row' }}>

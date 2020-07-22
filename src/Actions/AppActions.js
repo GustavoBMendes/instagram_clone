@@ -12,6 +12,7 @@ import {
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
 	INFO_PERFIL_VISITANTE,
+	SEGUINDO,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -196,4 +197,23 @@ const sucessoSeguir = (dispatch) => {
 
 	dispatch({ type: 'sucesso_seguir', payload: 'sucesso' })
 
+}
+
+export const seguidor = (emailPerfilVisitado) => {
+
+	const { currentUser } = firebase.auth();
+	const emailUserLogado = b64.encode( currentUser.email );
+
+	return dispatch => {
+		firebase.database().ref('/contatos/'+emailUserLogado).child('seguindo').child(emailPerfilVisitado)
+					.once('value')
+					.then(snapshot => {
+						
+						if(snapshot.val()) {
+							dispatch({ type: SEGUINDO })
+						}
+					
+					})
+
+	}
 }

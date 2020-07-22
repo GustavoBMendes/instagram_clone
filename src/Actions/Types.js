@@ -15,3 +15,4 @@ export const MODIFICA_BIO = 'modifica_bio';
 export const SUCESSO_BUSCA = 'sucesso_busca';
 export const ERRO_BUSCA = 'erro_busca';
 export const INFO_PERFIL_VISITANTE = 'info_perfil_visitante';
+export const SEGUINDO = 'seguindo';

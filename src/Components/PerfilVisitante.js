@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, } from '../Actions/AppActions';
+import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 var nomeusr;
@@ -60,13 +60,20 @@ class PerfilVisitante extends Component {
 
 	UNSAFE_componentWillMount() {
 		const { route } = this.props;
-		const { nomeUsuario } = route.params;
+		const { nomeUsuario, email } = route.params;
 		this.props.infoPerfilVisitante(nomeUsuario);
+		this.props.seguidor(email);
 		this.criaFonteDeDados(this.props.info);
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
 		this.criaFonteDeDados(nextProps.info);
+	}
+
+	componentDidMount() {
+		const { route } = this.props;
+		const { email } = route.params;
+		this.props.seguidor(email);
 	}
 
 	criaFonteDeDados(info) {
@@ -76,21 +83,40 @@ class PerfilVisitante extends Component {
 	renderBtn() {
 
 		const { route } = this.props;
-		const { email } = route.params;
+		const { nomeUsuario, email, nome } = route.params;
 
-		return(
-			<TouchableOpacity onPress={() => this.props.seguirPerfil()} 
-				style={{height: 25, 
-						marginHorizontal: 20, 
-						borderRadius: 3, 
-						borderWidth: 1 ,
-						borderColor: '#fff', 
-						justifyContent: 'center',
-						backgroundColor: '#3598f1',
-				}}>
-				<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguir</Text>
-			</TouchableOpacity>
-		);
+		if(this.props.seguindo === false) {
+
+			return(
+				<TouchableOpacity onPress={() => this.props.seguirPerfil(email, nomeUsuario, nome )} 
+					style={{height: 25, 
+							marginHorizontal: 20, 
+							borderRadius: 3, 
+							borderWidth: 1 ,
+							borderColor: '#fff', 
+							justifyContent: 'center',
+							backgroundColor: '#3598f1',
+					}}>
+					<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguir</Text>
+				</TouchableOpacity>
+			);
+
+		}
+
+		else {
+			return(
+				<TouchableOpacity onPress={() => false} 
+					style={{height: 25, 
+							marginHorizontal: 20, 
+							borderRadius: 3, 
+							borderWidth: 1 ,
+							borderColor: '#bfbfbf', 
+							justifyContent: 'center',
+					}}>
+					<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguindo</Text>
+				</TouchableOpacity>
+			);
+		}
 	
 	}
 	
@@ -143,8 +169,9 @@ const mapStateToProps = state => {
 	return {
 		info,
 		nomeUsr: state.InfoPerfilUser.nome_usr,
+		seguindo: state.InfoPerfilVisitante.seguindo,
 	}
 
 }
 
-export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr, seguirPerfil }) (PerfilVisitante);
+export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor }) (PerfilVisitante);
