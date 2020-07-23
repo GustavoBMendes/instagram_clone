@@ -60,20 +60,13 @@ class PerfilVisitante extends Component {
 
 	UNSAFE_componentWillMount() {
 		const { route } = this.props;
-		const { nomeUsuario, email } = route.params;
+		const { nomeUsuario, } = route.params;
 		this.props.infoPerfilVisitante(nomeUsuario);
-		this.props.seguidor(email);
 		this.criaFonteDeDados(this.props.info);
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
 		this.criaFonteDeDados(nextProps.info);
-	}
-
-	componentDidMount() {
-		const { route } = this.props;
-		const { email } = route.params;
-		this.props.seguidor(email);
 	}
 
 	criaFonteDeDados(info) {
@@ -84,8 +77,8 @@ class PerfilVisitante extends Component {
 
 		const { route } = this.props;
 		const { nomeUsuario, email, nome } = route.params;
-
-		if(this.props.seguindo === false) {
+		this.props.seguidor(email);
+		if(!this.props.seguindo) {
 
 			return(
 				<TouchableOpacity onPress={() => this.props.seguirPerfil(email, nomeUsuario, nome )} 
@@ -113,7 +106,7 @@ class PerfilVisitante extends Component {
 							borderColor: '#bfbfbf', 
 							justifyContent: 'center',
 					}}>
-					<Text style={{ fontWeight: 'bold', textAlign: 'center', color: '#fff' }}>Seguindo</Text>
+					<Text style={{ fontWeight: 'bold', textAlign: 'center', }}>Seguindo</Text>
 				</TouchableOpacity>
 			);
 		}

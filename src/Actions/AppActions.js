@@ -205,7 +205,7 @@ export const seguidor = (emailPerfilVisitado) => {
 	const emailUserLogado = b64.encode( currentUser.email );
 
 	return dispatch => {
-		firebase.database().ref('/contatos/'+emailUserLogado).child('seguindo').child(emailPerfilVisitado)
+		firebase.database().ref('/contatos/'+emailUserLogado+'/seguindo/'+emailPerfilVisitado)
 					.once('value')
 					.then(snapshot => {
 						
