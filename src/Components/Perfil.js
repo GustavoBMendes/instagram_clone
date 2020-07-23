@@ -13,7 +13,7 @@ var nomeusr;
 function RenderNomeUsr({ nome }) {
 
 	return(
-			<Text style={{ fontWeight: 'bold', justifyContent: 'flex-end', width: 100 }}> {nome} </Text>
+			<Text style={{ fontWeight: 'bold', justifyContent: 'flex-end', width: 100, marginTop: 20 }}> {nome} </Text>
 	);
 
 }

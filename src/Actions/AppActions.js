@@ -168,22 +168,36 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 	const emailUserLogado = b64.encode( currentUser.email );
 
 	return dispatch => {
-
-		firebase.database().ref('/contatos/'+emailUserLogado).child('seguindo').child(emailPerfilVisitado)
+		let ref = firebase.database().ref('/contatos/'+emailUserLogado);
+		let ref2 = firebase.database().ref('/contatos/'+emailPerfilVisitado);
+		ref.child('seguindo').child(emailPerfilVisitado)
 			.set({ 'nome': nomeVisitado, 'nomeUsr': nomeUsrPerfilVisitado })
 			.then( () => {
 
-				firebase.database().ref('/contatos/'+emailUserLogado)
-				.once('value')
+				ref.once('value')
 				.then(snapshot => {
 					
 					if(snapshot.val()) {
 
 						const dadosUsuario = _.first(_.values(snapshot.val()));
-						firebase.database().ref('/contatos/'+emailPerfilVisitado).child('seguidores').child(emailUserLogado)
-						.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr })
-						.then(value => sucessoSeguir(dispatch))
 
+						ref2.child('seguidores').child(emailUserLogado)
+						.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr })
+
+						.then(() => {
+							ref.child(emailUserLogado).transaction(seguindo => {
+								let attSeguindo = seguindo + 1;
+								ref.child(emailUserLogado).update({ 'seguindo': attSeguindo })
+							})
+							.then(() => {
+								ref2.child(emailPerfilVisitado).transaction(seguidores => {
+									let attSeguidores = seguidores + 1;
+									ref2.child(emailPerfilVisitado).update({ 'seguidores': attSeguidores })
+								})	
+							})
+							.then(value => sucessoSeguir(dispatch))
+						})
+						
 					}
 				})
 			})
