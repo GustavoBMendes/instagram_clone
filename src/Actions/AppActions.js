@@ -187,14 +187,12 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 						.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr })
 
 						.then(() => {
-							ref.child(emailUserLogado).transaction(seguindo => {
-								let attSeguindo = seguindo + 1;
-								ref.child(emailUserLogado).update({ 'seguindo': attSeguindo })
+							ref.child(emailUserLogado).child('seguindo').transaction(function(seguindo) {
+								return seguindo + 1;
 							})
 							.then(() => {
-								ref2.child(emailPerfilVisitado).transaction(seguidores => {
-									let attSeguidores = seguidores + 1;
-									ref2.child(emailPerfilVisitado).update({ 'seguidores': attSeguidores })
+								ref2.child(emailPerfilVisitado).child('seguidores').transaction(function(seguidores) {
+									return seguidores + 1;
 								})	
 							})
 							.then(value => sucessoSeguir(dispatch))
@@ -247,14 +245,12 @@ export const unfollow = (emailPerfilVisitado) => {
 		.then(() => {
 			ref2.child('seguidores').child(emailUserLogado).remove()
 			.then(() => {
-				ref.child(emailUserLogado).transaction(seguindo => {
-					let attSeguindo = seguindo - 1;
-					ref.child(emailUserLogado).update({ 'seguindo': attSeguindo })
+				ref.child(emailUserLogado).child('seguindo').transaction(function(seguindo) {
+					return seguindo - 1;
 				})
 				.then(() => {
-					ref2.child(emailPerfilVisitado).transaction(seguidores => {
-						let attSeguidores = seguidores - 1;
-						ref2.child(emailPerfilVisitado).update({ 'seguidores': attSeguidores })
+					ref2.child(emailPerfilVisitado).child('seguidores').transaction(function(seguidores) {
+						return seguidores - 1;
 					})
 				})
 				.then(value => dispatch({ type: UNFOLLOW }))
