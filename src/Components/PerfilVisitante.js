@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor } from '../Actions/AppActions';
+import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor, unfollow } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 var nomeusr;
@@ -98,7 +98,7 @@ class PerfilVisitante extends Component {
 
 		else {
 			return(
-				<TouchableOpacity onPress={() => false} 
+				<TouchableOpacity onPress={() => this.props.unfollow(email)} 
 					style={{height: 25, 
 							marginHorizontal: 20, 
 							borderRadius: 3, 
@@ -167,4 +167,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor }) (PerfilVisitante);
+export default connect(mapStateToProps, { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor, unfollow, }) (PerfilVisitante);

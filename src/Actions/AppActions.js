@@ -12,7 +12,9 @@ import {
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
 	INFO_PERFIL_VISITANTE,
+	SUCESSO_SEGUIR,
 	SEGUINDO,
+	UNFOLLOW,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -209,7 +211,7 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 
 const sucessoSeguir = (dispatch) => {
 
-	dispatch({ type: 'sucesso_seguir', payload: 'sucesso' })
+	dispatch({ type: SUCESSO_SEGUIR })
 
 }
 
@@ -230,4 +232,34 @@ export const seguidor = (emailPerfilVisitado) => {
 					})
 
 	}
+}
+
+export const unfollow = (emailPerfilVisitado) => {
+
+	const { currentUser } = firebase.auth();
+	const emailUserLogado = b64.encode( currentUser.email );
+
+	return dispatch => {
+		let ref = firebase.database().ref('/contatos/'+emailUserLogado);
+		let ref2 = firebase.database().ref('/contatos/'+emailPerfilVisitado);
+
+		ref.child('seguindo').child(emailPerfilVisitado).remove()
+		.then(() => {
+			ref2.child('seguidores').child(emailUserLogado).remove()
+			.then(() => {
+				ref.child(emailUserLogado).transaction(seguindo => {
+					let attSeguindo = seguindo - 1;
+					ref.child(emailUserLogado).update({ 'seguindo': attSeguindo })
+				})
+				.then(() => {
+					ref2.child(emailPerfilVisitado).transaction(seguidores => {
+						let attSeguidores = seguidores - 1;
+						ref2.child(emailPerfilVisitado).update({ 'seguidores': attSeguidores })
+					})
+				})
+				.then(value => dispatch({ type: UNFOLLOW }))
+			})
+		})
+	}
+
 }
