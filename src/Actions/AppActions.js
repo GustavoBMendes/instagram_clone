@@ -195,6 +195,10 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 									return seguidores + 1;
 								})	
 							})
+							.then(() => { 
+								ref2.child('notificacoes').child(emailUserLogado)
+								.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr, 'email': dadosUsuario.email })
+							})
 							.then(value => sucessoSeguir(dispatch))
 						})
 						
