@@ -7,6 +7,7 @@ import {
 	MODIFICA_BIO,
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
+	NOTIFICACAO,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
@@ -47,6 +48,9 @@ export default ( state = INITIAL_STATE, action ) => {
 
 		case ERRO_BUSCA:
 			return { ...state, search_erro: action.payload }
+
+		case NOTIFICACAO:
+			return action.payload;
 
 		default:
 			return state;

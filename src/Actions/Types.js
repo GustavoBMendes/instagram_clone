@@ -18,3 +18,4 @@ export const INFO_PERFIL_VISITANTE = 'info_perfil_visitante';
 export const SUCESSO_SEGUIR = 'sucesso_seguir';
 export const SEGUINDO = 'seguindo';
 export const UNFOLLOW = 'unfollow';
+export const NOTIFICACAO = 'notificacao';

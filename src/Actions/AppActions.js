@@ -15,6 +15,7 @@ import {
 	SUCESSO_SEGUIR,
 	SEGUINDO,
 	UNFOLLOW,
+	NOTIFICACAO,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -197,7 +198,7 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 							})
 							.then(() => { 
 								ref2.child('notificacoes').child(emailUserLogado)
-								.set({ 'nome': dadosUsuario.nome, 'nomeUsr': dadosUsuario.nomeUsr, 'email': dadosUsuario.email })
+								.set({ 'nomeSeguidor': dadosUsuario.nome, 'nomeUsrSeguidor': dadosUsuario.nomeUsr, 'fotoSeguidor': dadosUsuario.foto })
 							})
 							.then(value => sucessoSeguir(dispatch))
 						})
@@ -260,6 +261,25 @@ export const unfollow = (emailPerfilVisitado) => {
 				.then(value => dispatch({ type: UNFOLLOW }))
 			})
 		})
+	}
+
+}
+
+export const getNotificacoes = () => {
+
+	const { currentUser } = firebase.auth();
+	const emailUserLogado = b64.encode( currentUser.email );
+
+	return dispatch => {
+
+		let ref = firebase.database().ref('/contatos/'+emailUserLogado+'/notificacoes');
+
+		ref.once('value', snapshot => {
+				console.log('snap', snapshot.val());
+				dispatch({ type: NOTIFICACAO, payload: snapshot.val() })
+			}
+		)
+
 	}
 
 }
