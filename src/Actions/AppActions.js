@@ -203,7 +203,7 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 									'nomeUsrSeguidor': dadosUsuario.nomeUsr, 
 									'fotoSeguidor': dadosUsuario.foto, 
 									'msg': msg,
-									'emailSeguidor': dadosUsuario.email,
+									'emailSeguidor': emailUserLogado,
 								})
 							})
 							.then(value => sucessoSeguir(dispatch))

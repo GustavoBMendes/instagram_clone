@@ -64,7 +64,9 @@ class Atividade extends Component {
 			return(
 				<TouchableOpacity onPress={() => this.props.unfollow(email)} 
 					style={{height: 25, 
-							marginHorizontal: 20, 
+							width: 90,
+							marginRight: 10, 
+							marginLeft: 15,
 							borderRadius: 3, 
 							borderWidth: 1 ,
 							borderColor: '#bfbfbf', 
@@ -125,7 +127,8 @@ const mapStateToProps = state => {
 	});
 
 	return {
-		notif
+		notif,
+		seguindo: state.InfoPerfilVisitante.seguindo,
 	}
 
 }
