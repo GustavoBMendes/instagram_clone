@@ -3,7 +3,6 @@ import { View, Text, FlatList, Image, } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import firebase from 'firebase';
 
 import { infoPerfilVisitante, updateNomeUsr, seguirPerfil, seguidor, unfollow } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';

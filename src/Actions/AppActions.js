@@ -197,8 +197,14 @@ export const seguirPerfil = (emailPerfilVisitado, nomeUsrPerfilVisitado, nomeVis
 								})	
 							})
 							.then(() => { 
+								let msg = ' começou a seguir você!';
 								ref2.child('notificacoes').child(emailUserLogado)
-								.set({ 'nomeSeguidor': dadosUsuario.nome, 'nomeUsrSeguidor': dadosUsuario.nomeUsr, 'fotoSeguidor': dadosUsuario.foto })
+								.set({ 'nomeSeguidor': dadosUsuario.nome, 
+									'nomeUsrSeguidor': dadosUsuario.nomeUsr, 
+									'fotoSeguidor': dadosUsuario.foto, 
+									'msg': msg,
+									'emailSeguidor': dadosUsuario.email,
+								})
 							})
 							.then(value => sucessoSeguir(dispatch))
 						})
@@ -275,7 +281,6 @@ export const getNotificacoes = () => {
 		let ref = firebase.database().ref('/contatos/'+emailUserLogado+'/notificacoes');
 
 		ref.once('value', snapshot => {
-				console.log('snap', snapshot.val());
 				dispatch({ type: NOTIFICACAO, payload: snapshot.val() })
 			}
 		)

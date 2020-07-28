@@ -19,7 +19,7 @@ class Explorar extends Component {
 						<View style={{ flexDirection: 'row' }}>
 							<Image source={{ uri: this.props.update_photo }} style={{ width: 44, height: 44, borderRadius: 100, marginLeft: 15 }}/>
 							<View style={{ alignSelf: 'center', marginLeft: 10 }}>
-								<Text style={{ fontWeight: 'bold' }}>{this.props.usuario_busca}</Text>
+								<Text style={{ fontWeight: '600' }}>{this.props.usuario_busca}</Text>
 								<Text style={{ color: '#bfbfbf' }}>{this.props.nome}</Text>
 							</View>
 						</View>
