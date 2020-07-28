@@ -264,6 +264,9 @@ export const unfollow = (emailPerfilVisitado) => {
 						return seguidores - 1;
 					})
 				})
+				.then(() => {
+					ref2.child('notificacoes').child(emailUserLogado).remove();
+				})
 				.then(value => dispatch({ type: UNFOLLOW }))
 			})
 		})
