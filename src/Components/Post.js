@@ -6,25 +6,30 @@ import {
   Button,
   View,
   Text,
+  Alert,
 } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import CameraRollGallery from "react-native-camera-roll-gallery";
 import _ from 'lodash';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { TouchableOpacity, } from 'react-native-gesture-handler';
+import { TouchableOpacity, FlatList, } from 'react-native-gesture-handler';
+import * as MediaLibrary from 'expo-media-library';
+
+var photos = [];
 
 class Post extends Component {
 
-	constructor(props) {
-		super(props);
-
-		this.state = { photos: [] };
+	state = {
+		rollGranted: false,
+		photo: [],
 	}
 
 	componentDidMount() {
 		this.getPermissionAsync();
+		this.getCameraRoll();
 	}
+
 
 	getPermissionAsync = async () => {
 		if(Constants.platform.ios) {
@@ -32,8 +37,25 @@ class Post extends Component {
 			if (status !== 'granted') {
 				alert('Sorry, we need camera roll permissions to make this work!');
 			}
+			else {
+				this.setState({ rollGranted: true });
+			}
 		}
 	};
+
+	getCameraRoll = async () => {
+		var i;
+		const album = await MediaLibrary.getAlbumAsync('Camera');
+		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 10 });
+		
+		for(i = 0; i < photosTemp.assets.length; i++) {
+			console.log('assets', photosTemp.assets[i].uri);
+			photos.push(photosTemp.assets[i].uri);
+		}
+
+		this.setState({ photo: photos })
+
+	}
 
 	_handleButtonPress = () => {
 		CameraRoll.getPhotos({
@@ -46,6 +68,7 @@ class Post extends Component {
 		};
 
 	render() {
+		
 		return (
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
 
@@ -65,17 +88,15 @@ class Post extends Component {
 
 					</View>
 
-				<Button title="Load Images" onPress={this._handleButtonPress} />
-				<ScrollView>
-				{this.state.photos.map((p, i) => {
+				<ScrollView style={{ flexDirection: 'row' }}>
+				{this.state.photo.map((p) => {
 				return (
 					<Image
-					key={i}
 					style={{
-						width: 300,
+						width: 100,
 						height: 100,
 					}}
-					source={{ uri: p.node.image.uri }}
+					source={{ uri: p }}
 					/>
 				);
 				})}
