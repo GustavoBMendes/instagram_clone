@@ -7,6 +7,8 @@ import {
   View,
   Text,
   Alert,
+  Dimensions,
+  Modal,
 } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import CameraRollGallery from "react-native-camera-roll-gallery";
@@ -23,6 +25,8 @@ class Post extends Component {
 	state = {
 		rollGranted: false,
 		photo: [],
+		modalVisible: false,
+		modalImage: null,
 	}
 
 	componentDidMount() {
@@ -46,15 +50,18 @@ class Post extends Component {
 	getCameraRoll = async () => {
 		var i;
 		const album = await MediaLibrary.getAlbumAsync('Camera');
-		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 10 });
+		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 4 });
 		
-		for(i = 0; i < photosTemp.assets.length; i++) {
-			console.log('assets', photosTemp.assets[i].uri);
+		for(i = 0; i < photosTemp.assets.length; i++)
 			photos.push(photosTemp.assets[i].uri);
-		}
 
 		this.setState({ photo: photos })
 
+	}
+
+	setModalVisible(visible, imageKey) {
+		this.setState({ modalImage: this.state.photo[imageKey] });
+		this.setState({ modalVisible: visible })
 	}
 
 	_handleButtonPress = () => {
@@ -72,7 +79,7 @@ class Post extends Component {
 		return (
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
 
-					<View style={{ height: 65, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#bfbfbf' }}>
+				<View style={styles.cabecalho}>
 
 					<TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ marginLeft: 7, marginTop: 15 }}>
 						<Text style={{ fontSize: 17, }}>Cancelar</Text>
@@ -86,21 +93,45 @@ class Post extends Component {
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: '600', }}>Concluir</Text>
 					</TouchableOpacity>
 
+				</View>
+
+				<ScrollView>
+
+					<Modal style={styles.modal} animationType={'fade'}
+							transparent={true} visible={this.state.modalVisible}
+							onRequestClose={() => {}}>
+						
+						<View style={styles.modal}>
+
+							<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+								<Text style={{ color: '#fff' }} onPress={() => {this.setModalVisible(false)}}>
+									Close
+								</Text>
+
+								<Text style={{ color: '#fff' }} onPress={() => false}> Avançar </Text>
+
+							</View>
+
+							<Image style={styles.imageModal} source={{ uri: this.state.modalImage }} />
+						</View>
+
+					</Modal>
+
+					<View style={styles.container}>
+						{this.state.photo.map((p, i) => {
+							return (
+								<TouchableOpacity key={i} onPress={() => { this.setModalVisible(true, i) }}>
+									<View>
+										<Image key={i} style={styles.imageWrap} source={{ uri: p }} />
+									</View>
+								</TouchableOpacity>
+							);
+						})}
 					</View>
 
-				<ScrollView style={{ flexDirection: 'row' }}>
-				{this.state.photo.map((p) => {
-				return (
-					<Image
-					style={{
-						width: 100,
-						height: 100,
-					}}
-					source={{ uri: p }}
-					/>
-				);
-				})}
 				</ScrollView>
+
 			</View>
 			
 		);
@@ -108,20 +139,40 @@ class Post extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#F5FCFF',
-  },
-  imageGrid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
-  },
-  image: {
-      width: 100,
-      height: 100,
-      margin: 10,
-  },
+	cabecalho: { 
+		height: 65, 
+		backgroundColor: '#fff', 
+		flexDirection: 'row',
+		alignItems: 'center', 
+		justifyContent: 'space-between', 
+		borderWidth: 1, 
+		borderColor: '#bfbfbf' 
+	},
+
+	container: {
+		flex:1 ,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+
+	imageWrap: {
+		margin: 1,
+		padding: 1,
+		height: (Dimensions.get('window').height/6) - 11,
+		width: (Dimensions.get('window').width/4) - 2,
+	},
+
+	modal: {
+		flex: 1,
+		padding: 40,
+		backgroundColor: 'rgba(0,0,0,0.9)'
+	},
+
+	imageModal: {
+		height: (Dimensions.get('window').height/2),
+		width: null,
+	}
+
 });
 
 export default Post;
