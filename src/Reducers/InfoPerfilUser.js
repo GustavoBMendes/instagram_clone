@@ -8,6 +8,7 @@ import {
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
 	NOTIFICACAO,
+	POSTAGEM,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {

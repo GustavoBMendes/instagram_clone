@@ -15,6 +15,8 @@ import * as Permissions from 'expo-permissions';
 import { TouchableOpacity, } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library';
 
+import { FinalizarPost } from './FinalizarPost';
+
 var photos = [];
 
 class Post extends Component {
@@ -61,6 +63,11 @@ class Post extends Component {
 		this.setState({ modalVisible: visible })
 	}
 
+	avancarPost() {
+		this.setModalVisible(false);
+		this.props.navigation.navigate('Finalizar Post', { imagem: this.state.modalImage });
+	}
+
 	render() {
 		
 		return (
@@ -96,7 +103,7 @@ class Post extends Component {
 									Close
 								</Text>
 
-								<Text style={{ color: '#fff' }} onPress={() => false}> Avançar </Text>
+								<Text style={{ color: '#fff' }} onPress={() => this.avancarPost() }> Avançar </Text>
 
 							</View>
 

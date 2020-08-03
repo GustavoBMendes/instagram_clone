@@ -19,3 +19,4 @@ export const SUCESSO_SEGUIR = 'sucesso_seguir';
 export const SEGUINDO = 'seguindo';
 export const UNFOLLOW = 'unfollow';
 export const NOTIFICACAO = 'notificacao';
+export const POSTAGEM = 'postagem';

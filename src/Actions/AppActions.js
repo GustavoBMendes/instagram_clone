@@ -16,6 +16,7 @@ import {
 	SEGUINDO,
 	UNFOLLOW,
 	NOTIFICACAO,
+	POSTAGEM,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -302,7 +303,7 @@ export const post = (foto, legenda, ) => {
 		let ref = firebase.database().ref('/contatos/'+emailUserLogado+'/postagens');
 
 		ref.set({ 'foto': foto, 'legenda': legenda })
-		.then(dispatch({ type: 'postagem' }))
+		.then(dispatch({ type: POSTAGEM }))
 
 	}
 
