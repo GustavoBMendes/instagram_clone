@@ -1,21 +1,18 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, } from 'react'
 import {
   Image,
   ScrollView,
   StyleSheet,
-  Button,
   View,
   Text,
-  Alert,
   Dimensions,
   Modal,
 } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
-import CameraRollGallery from "react-native-camera-roll-gallery";
 import _ from 'lodash';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { TouchableOpacity, FlatList, } from 'react-native-gesture-handler';
+import { TouchableOpacity, } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library';
 
 var photos = [];
@@ -51,7 +48,7 @@ class Post extends Component {
 		var i;
 		const album = await MediaLibrary.getAlbumAsync('Camera');
 		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 4 });
-		
+		console.log('photos', photosTemp);
 		for(i = 0; i < photosTemp.assets.length; i++)
 			photos.push(photosTemp.assets[i].uri);
 
@@ -63,16 +60,6 @@ class Post extends Component {
 		this.setState({ modalImage: this.state.photo[imageKey] });
 		this.setState({ modalVisible: visible })
 	}
-
-	_handleButtonPress = () => {
-		CameraRoll.getPhotos({
-			first: 20,
-			assetType: 'Photos',
-			groupTypes: 'All',
-		  })
-		.then(data => console.log(data)
-   		.catch(err => console.log(err)));
-		};
 
 	render() {
 		
@@ -129,7 +116,7 @@ class Post extends Component {
 							);
 						})}
 					</View>
-
+					
 				</ScrollView>
 
 			</View>

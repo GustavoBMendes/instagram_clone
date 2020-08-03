@@ -60,7 +60,7 @@ class Explorar extends Component {
 					</TouchableOpacity>
 
 				</View>
-
+				
 				{this.renderUsr()}
 
 			</View>

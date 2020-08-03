@@ -291,3 +291,19 @@ export const getNotificacoes = () => {
 	}
 
 }
+
+export const post = (foto, legenda, ) => {
+
+	const { currentUser } = firebase.auth();
+	const emailUserLogado = b64.encode( currentUser.email );
+
+	return dispatch => {
+
+		let ref = firebase.database().ref('/contatos/'+emailUserLogado+'/postagens');
+
+		ref.set({ 'foto': foto, 'legenda': legenda })
+		.then(dispatch({ type: 'postagem' }))
+
+	}
+
+}
