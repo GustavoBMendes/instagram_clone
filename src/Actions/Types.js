@@ -20,3 +20,4 @@ export const SEGUINDO = 'seguindo';
 export const UNFOLLOW = 'unfollow';
 export const NOTIFICACAO = 'notificacao';
 export const POSTAGEM = 'postagem';
+export const MODIFICA_LEGENDA = 'legenda';

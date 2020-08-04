@@ -9,6 +9,7 @@ import {
 	ERRO_BUSCA,
 	NOTIFICACAO,
 	POSTAGEM,
+	MODIFICA_LEGENDA,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
 	usuario_busca: '',
 	search_erro: '',
 	email: '',
+	legenda_photo: '',
 }
 
 export default ( state = INITIAL_STATE, action ) => {
@@ -52,6 +54,9 @@ export default ( state = INITIAL_STATE, action ) => {
 
 		case NOTIFICACAO:
 			return action.payload;
+
+		case MODIFICA_LEGENDA: 
+			return { ...state, legenda_photo: action.payload };
 
 		default:
 			return state;

@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { View, Text, Image, FlatList, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, } from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import _ from 'lodash';
 import { connect } from 'react-redux';

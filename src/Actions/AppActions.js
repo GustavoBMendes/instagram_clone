@@ -17,6 +17,7 @@ import {
 	UNFOLLOW,
 	NOTIFICACAO,
 	POSTAGEM,
+	MODIFICA_LEGENDA,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -293,18 +294,40 @@ export const getNotificacoes = () => {
 
 }
 
-export const post = (foto, legenda, ) => {
+export const updateLegenda = (legenda) => {
+
+	return dispatch => {
+		dispatch({ type: MODIFICA_LEGENDA, payload: legenda });
+	}
+
+}
+
+export const post = (foto, legenda, navigation ) => {
 
 	const { currentUser } = firebase.auth();
 	const emailUserLogado = b64.encode( currentUser.email );
 
 	return dispatch => {
 
-		let ref = firebase.database().ref('/contatos/'+emailUserLogado+'/postagens');
+		let ref = firebase.database().ref('/contatos/'+emailUserLogado);
 
-		ref.set({ 'foto': foto, 'legenda': legenda })
-		.then(dispatch({ type: POSTAGEM }))
+		ref.child(emailUserLogado).child('posts').transaction(function(posts) {
+			return posts + 1;
+		})
+		.then(() => {
+			ref.child('postagens').set({ 'foto': foto, 'legenda': legenda })
+			.then(() => {
+				firebase.database().ref('/feed/'+emailUserLogado).set({ 'foto': foto, 'legenda': legenda })
+				.then(() => { postSucesso(navigation) })
+			})
+		})
 
 	}
+
+}
+
+const postSucesso = (navigation) => {
+
+	navigation.navigate('Feed');
 
 }

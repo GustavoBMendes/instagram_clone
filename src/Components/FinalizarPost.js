@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 
+import { post, updateLegenda } from '../Actions/AppActions';
 
 class FinalizarPost extends Component {
 
@@ -21,15 +23,33 @@ class FinalizarPost extends Component {
 						<Text style={{ fontWeight: '700', fontSize: 18 }}>Editar</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => false} style={{ marginRight: 7, marginTop: 15 }}>
+					<TouchableOpacity onPress={() => this.props.post(imagem, this.props.legenda_photo, this.props.navigation)} style={{ marginRight: 7, marginTop: 15 }}>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: '600', }}>Postar</Text>
 					</TouchableOpacity>
 
 				</View>
 
 				<View>
-					<Image source={{ uri: imagem }} style={{ width: 100, height: 100, }}/>
+					<Image source={{ uri: imagem }} style={{ width: null, height: (Dimensions.get('window').height/2), }}/>
 				</View>
+
+				<TextInput 
+					placeholder='Escreva uma legenda' 
+					value={this.props.legenda_photo} 
+					onChangeText={texto => this.props.updateLegenda(texto)} 
+					placeholderTextColor='#bfbfbf' 
+					style={styles.text_input} 
+				/>
+
+				<View style={styles.linhas} />
+
+				<TextInput placeholder='Localização' placeholderTextColor='#bfbfbf' style={styles.text_input} />
+
+				<View style={styles.linhas} />
+
+				<TextInput placeholder='Marcar usuários' placeholderTextColor='#bfbfbf' style={styles.text_input} />
+
+				<View style={styles.linhasFechadas} />
 
 			</View>
 		);
@@ -48,6 +68,38 @@ const styles = StyleSheet.create({
 		borderColor: '#bfbfbf' 
 	},
 
+	linhas: {
+		borderTopWidth: 1, 
+		width: Dimensions.get('window').width/1.09, 
+		alignSelf: 'center', 
+		borderColor: '#bfbfbf',
+		marginTop: 5,
+		marginLeft: 35,
+	},
+
+	linhasFechadas: {
+		borderTopWidth: 1, 
+		width: 400,
+		alignSelf: 'center', 
+		borderColor: '#bfbfbf',
+		marginTop: 5,
+	},
+
+	text_input: { 
+		width: 250, 
+		height: 50, 
+		fontSize: 20, 
+		padding: 30, 
+	}
+
 })
 
-export default FinalizarPost;
+const mapStateToProps = state => {
+
+	return {
+		legenda_photo: state.InfoPerfilUser.legenda_photo,
+	}
+
+}
+
+export default connect(mapStateToProps, { post, updateLegenda })(FinalizarPost);

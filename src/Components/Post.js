@@ -8,14 +8,11 @@ import {
   Dimensions,
   Modal,
 } from 'react-native';
-import CameraRoll from "@react-native-community/cameraroll";
 import _ from 'lodash';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { TouchableOpacity, } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library';
-
-import { FinalizarPost } from './FinalizarPost';
 
 var photos = [];
 
