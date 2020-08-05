@@ -93,7 +93,6 @@ class Atividade extends Component {
 					<FlatList
 						data={this.dataSource}
 						renderItem={ ({ item }) => { 
-
 							return(
 								<View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'space-around', alignItems: 'center' }}>
 									<Image source={{ uri: item.fotoSeguidor }} style={{ width: 44, height: 44, borderRadius: 100, marginLeft: 15, }}/>

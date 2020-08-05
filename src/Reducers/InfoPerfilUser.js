@@ -8,7 +8,6 @@ import {
 	SUCESSO_BUSCA,
 	ERRO_BUSCA,
 	NOTIFICACAO,
-	POSTAGEM,
 	MODIFICA_LEGENDA,
 } from '../Actions/Types';
 

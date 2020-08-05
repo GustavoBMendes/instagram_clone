@@ -33,7 +33,6 @@ export const infoPerfilUser = () => {
 			}).then(function(snapshot) {
 				//teste
 				var email = (snapshot.val());
-				console.log('email', email);
 			})
 
 	}
@@ -315,7 +314,7 @@ export const post = (foto, legenda, navigation ) => {
 			return posts + 1;
 		})
 		.then(() => {
-			ref.child('postagens').set({ 'foto': foto, 'legenda': legenda })
+			ref.child('postagens').child(emailUserLogado).set({ 'foto': foto, 'legenda': legenda })
 			.then(() => {
 				firebase.database().ref('/feed/'+emailUserLogado).set({ 'foto': foto, 'legenda': legenda })
 				.then(() => { postSucesso(navigation) })
@@ -329,5 +328,21 @@ export const post = (foto, legenda, navigation ) => {
 const postSucesso = (navigation) => {
 
 	navigation.navigate('Feed');
+
+}
+
+export const fotosPerfil = () => {
+
+	const { currentUser } = firebase.auth();
+	return dispatch => {
+		
+		const emailUserB64 = b64.encode( currentUser.email );
+
+		firebase.database().ref('/contatos/'+emailUserB64+'/postagens')
+			.once('value', snapshot => {
+				dispatch({ type: POSTAGEM, payload: snapshot.val() })
+			})
+
+	}
 
 }

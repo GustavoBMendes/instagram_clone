@@ -46,7 +46,7 @@ class Post extends Component {
 	getCameraRoll = async () => {
 		var i;
 		const album = await MediaLibrary.getAlbumAsync('Camera');
-		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 4 });
+		const photosTemp = await MediaLibrary.getAssetsAsync({ album: album, first: 20 });
 		console.log('photos', photosTemp);
 		for(i = 0; i < photosTemp.assets.length; i++)
 			photos.push(photosTemp.assets[i].uri);

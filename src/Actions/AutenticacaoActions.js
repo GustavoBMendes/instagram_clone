@@ -36,7 +36,6 @@ export const cadastraUsuario = ({ email, senha }, navigation) => {
 		firebase.auth().createUserWithEmailAndPassword(email, senha)
 			.then(user => {
 				let emailb64 = b64.encode(email);
-				console.log(emailb64);
 				var ref = firebase.database().ref('/contatos/'+emailb64);
 
 				var usersRef = ref.child(emailb64);
@@ -71,7 +70,6 @@ export const autenticarUser = ({ email, senha, navigation }) => {
 			.catch(erro => loginErro(erro, dispatch));
 		});
 
-		console.log('current user 2', firebase.auth().currentUser);
 	}
 
 }

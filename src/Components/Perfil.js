@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 
-import { infoPerfilUser, updateNomeUsr } from '../Actions/AppActions';
+import { infoPerfilUser, updateNomeUsr, fotosPerfil, } from '../Actions/AppActions';
 import PerfilFotos from './PerfilFotos';
 
 var nomeusr;
@@ -49,7 +49,9 @@ function Informacoes({ item, navigation, }) {
 			<View style={{ marginLeft: 20, marginTop: 20, marginBottom: 25 }}>
 				<Text style={{ fontWeight: 'bold' }}>{item.nome}</Text>
 				<Text>{item.descricao}</Text>
-				<Text style={{ color: '#3598f1' }}>{item.site}</Text>
+				<TouchableOpacity onPress={ () => false }>
+					<Text style={{ color: '#3598f1' }}>{item.site}</Text>
+				</TouchableOpacity>
 			</View>
 
 			<TouchableOpacity onPress={() => navigation.navigate('Editar Perfil', { foto: item.foto, nomeUsrAnterior: nomeusr})} 
@@ -71,15 +73,17 @@ class Perfil extends Component {
 
 	UNSAFE_componentWillMount() {
 		this.props.infoPerfilUser();
-		this.criaFonteDeDados(this.props.info);
+		this.props.fotosPerfil(),
+		this.criaFonteDeDados(this.props.info, this.props.fotos);
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
-		this.criaFonteDeDados(nextProps.info);
+		this.criaFonteDeDados(nextProps.info, nextProps.fotos);
 	}
 
-	criaFonteDeDados(info) {
+	criaFonteDeDados(info, fotos) {
 		this.dataSource = info;
+		this.fotoSource = fotos;
 	}
 
 
@@ -98,9 +102,10 @@ class Perfil extends Component {
 								}}
 					>
 						<FlatList
+							scrollEnabled={false}
 							data={this.dataSource}
 							renderItem={ ({ item }) => <RenderNomeUsr nome={item.nomeUsr} /> }
-							keyExtractor={item => item.nomeUsr}
+							keyExtractor={item => item.email}
 						/>
 						
 						<TouchableOpacity onPress={() => firebase.auth().signOut().then(() => { this.props.navigation.navigate('Login') })}>
@@ -114,7 +119,7 @@ class Perfil extends Component {
 					keyExtractor={item => item.email}
 				/>
 
-				<PerfilFotos />
+				<PerfilFotos fotos={this.fotoSource}/>
 
 			</View>
 		)
@@ -122,17 +127,24 @@ class Perfil extends Component {
 	}
 }
 
+//
+
 const mapStateToProps = state => {
 
 	const info = _.map(state.InfoPerfilUser, (val, uid) => {
 		return { ...val, uid };
 	});
+
+	const fotos = _.map(state.Posts_perfil, (val, uid) => {
+		return { ...val, uid };
+	});
 	
 	return {
 		info,
+		fotos,
 		nomeUsr: state.InfoPerfilUser.nome_usr,
 	}
 
 }
 
-export default connect(mapStateToProps, { infoPerfilUser, updateNomeUsr }) (Perfil);
+export default connect(mapStateToProps, { infoPerfilUser, updateNomeUsr, fotosPerfil, }) (Perfil);

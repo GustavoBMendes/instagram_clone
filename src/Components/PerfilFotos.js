@@ -1,14 +1,29 @@
 import React from 'react';
-import { View, Dimensions, SafeAreaView, Text, Image } from 'react-native';
+import { View, Dimensions, SafeAreaView, Text, Image, Dimensions, StyleSheet, } from 'react-native';
 import { TabView, TabBar, } from 'react-native-tab-view';
 
 import Images from '../imgs/index';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const Fotos = () => (
-	<Text>FOTOS</Text>
-);
+const Fotos = ({ item }) => {
+	console.log('FOTOo', item);
+	return (
+		<View style={styles.container}>
+			
+			<FlatList
+				data={item}
+				renderItem={({ item }) => {
+					return(
+						<Image source={{ uri: item.foto }} style={styles.imageWrap}/>
+					);
+				}}
+			/>
+
+		</View>
+	);
+}
 
 const Marcado = () => (
 	<Text>Marcado</Text>
@@ -30,8 +45,8 @@ const renderTabBar = props => (
 	</SafeAreaView>
 );
 
-export default function PerfilFotos() {
-
+export default function PerfilFotos({ fotos }) {
+	console.log('FOTOSSS', fotos);
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
 		{ key: 'first', title: 'Fotos', imagem: Images.fotos_postadas },
@@ -41,7 +56,7 @@ export default function PerfilFotos() {
 	const renderScene = ({ route }) => {
 		switch (route.key) {
 			case 'first':
-				return <Fotos />
+				return <Fotos item={fotos}/>
 			
 			case 'second':
 				return <Marcado />
@@ -60,3 +75,20 @@ export default function PerfilFotos() {
 	);
 
 }
+
+const styles = StyleSheet.create({
+
+	imageWrap: { 
+		width: (Dimensions.get('window').width/3), 
+		height: (Dimensions.get('window').width/3),
+		margin: 1,
+		padding: 1, 
+	},
+
+	container: {
+		flex:1 ,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+
+})
