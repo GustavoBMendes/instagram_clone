@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Image, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, TextInput, ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 
 import { post, updateLegenda } from '../Actions/AppActions';
@@ -28,29 +28,32 @@ class FinalizarPost extends Component {
 					</TouchableOpacity>
 
 				</View>
+				<ScrollView>
+					<KeyboardAvoidingView behavior="position" enabled>
+						<View>
+							<Image source={{ uri: imagem }} style={{ width: null, height: (Dimensions.get('window').height/2), }}/>
+						</View>
+						
+						<TextInput 
+							placeholder='Escreva uma legenda' 
+							value={this.props.legenda_photo} 
+							onChangeText={texto => this.props.updateLegenda(texto)} 
+							placeholderTextColor='#bfbfbf' 
+							color='black'
+							style={styles.text_input} 
+						/>
 
-				<View>
-					<Image source={{ uri: imagem }} style={{ width: null, height: (Dimensions.get('window').height/2), }}/>
-				</View>
+						<View style={styles.linhas} />
 
-				<TextInput 
-					placeholder='Escreva uma legenda' 
-					value={this.props.legenda_photo} 
-					onChangeText={texto => this.props.updateLegenda(texto)} 
-					placeholderTextColor='#bfbfbf' 
-					style={styles.text_input} 
-				/>
+						<TextInput placeholder='Localização' placeholderTextColor='#bfbfbf' style={styles.text_input} />
 
-				<View style={styles.linhas} />
+						<View style={styles.linhas} />
 
-				<TextInput placeholder='Localização' placeholderTextColor='#bfbfbf' style={styles.text_input} />
+						<TextInput placeholder='Marcar usuários' placeholderTextColor='#bfbfbf' style={styles.text_input} />
 
-				<View style={styles.linhas} />
-
-				<TextInput placeholder='Marcar usuários' placeholderTextColor='#bfbfbf' style={styles.text_input} />
-
-				<View style={styles.linhasFechadas} />
-
+						<View style={styles.linhasFechadas} />
+					</KeyboardAvoidingView>
+				</ScrollView>
 			</View>
 		);
 	}
@@ -88,8 +91,9 @@ const styles = StyleSheet.create({
 	text_input: { 
 		width: 250, 
 		height: 50, 
-		fontSize: 20, 
-		padding: 30, 
+		fontSize: 20,
+		marginLeft: 35,
+		marginVertical: 5,
 	}
 
 })
