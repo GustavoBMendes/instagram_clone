@@ -10,6 +10,8 @@ import Explorar from './Explorar';
 import Atividade from './Atividade';
 import Post from './Post';
 
+import PostsFeed from './PostsFeed';
+
 const Tab = createBottomTabNavigator();
 
 
@@ -31,6 +33,8 @@ function Home() {
 					<Image source={require('../imgs/enviar.png')} style={{ height: 25, width: 25, }}/>
 				</TouchableOpacity>
 			</View>
+
+			<PostsFeed />
 
 		</View>
 	);

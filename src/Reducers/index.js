@@ -4,6 +4,7 @@ import InfoPerfilUser from './InfoPerfilUser';
 import InfoPerfilVisitante from './infoPerfilVisitante';
 import Notificacoes from './Notificacoes';
 import Posts_perfil from './Posts_perfil';
+import Posts_feed from './Posts_feed';
 
 export default combineReducers ({
 	AutenticacaoReducer,
@@ -11,4 +12,5 @@ export default combineReducers ({
 	InfoPerfilVisitante,
 	Notificacoes,
 	Posts_perfil,
+	Posts_feed,
 });

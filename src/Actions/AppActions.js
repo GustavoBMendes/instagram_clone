@@ -18,6 +18,7 @@ import {
 	NOTIFICACAO,
 	POSTAGEM,
 	MODIFICA_LEGENDA,
+	POST_FEED,
 } from './Types';
 
 export const infoPerfilUser = () => {
@@ -314,9 +315,9 @@ export const post = (foto, legenda, navigation ) => {
 			return posts + 1;
 		})
 		.then(() => {
-			ref.child('postagens').child(emailUserLogado).set({ 'foto': foto, 'legenda': legenda })
+			ref.child('postagens').child(emailUserLogado).push({ 'foto': foto, 'legenda': legenda })
 			.then(() => {
-				firebase.database().ref('/feed/'+emailUserLogado).set({ 'foto': foto, 'legenda': legenda })
+				firebase.database().ref('/feed/'+emailUserLogado).push({ 'foto': foto, 'legenda': legenda })
 				.then(() => { postSucesso(navigation) })
 			})
 		})
@@ -338,9 +339,25 @@ export const fotosPerfil = () => {
 		
 		const emailUserB64 = b64.encode( currentUser.email );
 
-		firebase.database().ref('/contatos/'+emailUserB64+'/postagens')
+		firebase.database().ref('/contatos/'+emailUserB64+'/postagens/'+emailUserB64)
 			.once('value', snapshot => {
 				dispatch({ type: POSTAGEM, payload: snapshot.val() })
+			})
+
+	}
+
+}
+
+export const getPostsFeed = () => {
+
+	const { currentUser } = firebase.auth();
+	return dispatch => {
+		
+		const emailUserB64 = b64.encode( currentUser.email );
+
+		firebase.database().ref('/feed/'+emailUserB64)
+			.once('value', snapshot => {
+				dispatch({ type: POST_FEED, payload: snapshot.val() })
 			})
 
 	}

@@ -21,3 +21,4 @@ export const UNFOLLOW = 'unfollow';
 export const NOTIFICACAO = 'notificacao';
 export const POSTAGEM = 'postagem';
 export const MODIFICA_LEGENDA = 'legenda';
+export const POST_FEED = 'post_feed';
