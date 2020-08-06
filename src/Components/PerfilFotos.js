@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions, SafeAreaView, Text, Image, Dimensions, StyleSheet, } from 'react-native';
+import { View, Dimensions, SafeAreaView, Text, Image, StyleSheet, } from 'react-native';
 import { TabView, TabBar, } from 'react-native-tab-view';
 
 import Images from '../imgs/index';
@@ -10,15 +10,17 @@ const initialLayout = { width: Dimensions.get('window').width };
 const Fotos = ({ item }) => {
 	console.log('FOTOo', item);
 	return (
-		<View style={styles.container}>
+		<View>
 			
 			<FlatList
+				contentContainerStyle={{flexDirection : "row", flexWrap : "wrap"}} 
 				data={item}
 				renderItem={({ item }) => {
 					return(
 						<Image source={{ uri: item.foto }} style={styles.imageWrap}/>
 					);
 				}}
+				keyExtractor={item=> item.foto}
 			/>
 
 		</View>
@@ -79,16 +81,10 @@ export default function PerfilFotos({ fotos }) {
 const styles = StyleSheet.create({
 
 	imageWrap: { 
-		width: (Dimensions.get('window').width/3), 
-		height: (Dimensions.get('window').width/3),
+		width: (Dimensions.get('window').width/3) - 2, 
+		height: (Dimensions.get('window').width/3) - 2,
 		margin: 1,
 		padding: 1, 
-	},
-
-	container: {
-		flex:1 ,
-		flexDirection: 'row',
-		flexWrap: 'wrap',
 	},
 
 })
