@@ -13,7 +13,7 @@ const Fotos = ({ item }) => {
 		<View>
 			
 			<FlatList
-				contentContainerStyle={{flexDirection : "row", flexWrap : "wrap"}} 
+				contentContainerStyle={{flexDirection : 'row', flexWrap : "wrap"}} 
 				data={item}
 				renderItem={({ item }) => {
 					return(

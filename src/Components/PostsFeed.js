@@ -26,13 +26,27 @@ class PostsFeed extends Component {
 		return (
 			<View>
 				<FlatList 
+					contentContainerStyle={{flexDirection : 'column-reverse',}} 
 					data={this.dataSource}
 					renderItem={ ({ item }) => {
 						return (
-							<View style={{ marginBottom: 20, }}>
-								<Image source={{ uri: item.foto }} style={styles.image} />
-								<Text style={{ margin: 10, }}>{item.legenda}</Text>
+
+							<View>
+								<View style={{ margin: 10, flexDirection: 'row' }}>
+									<Image source={{ uri: item.fotoPerfil }} style={{ width: 40, height: 40, borderRadius: 100, }}/>
+									<Text style={{ alignSelf: 'center', marginLeft: 10, fontWeight: '700' }}>{item.nomeUsr}</Text>
+								</View>
+
+								<View style={{ marginBottom: 20, }}>
+									<Image source={{ uri: item.foto }} style={styles.image} />
+									<View style={{ flexDirection: 'row', margin: 10, }}>
+										<Text style={{ fontWeight: '700', }}>{item.nomeUsr} </Text>
+										<Text> {item.legenda}</Text>
+									</View>
+								</View>
+
 							</View>
+
 						);
 					}}
 					keyExtractor={item=> item.foto}

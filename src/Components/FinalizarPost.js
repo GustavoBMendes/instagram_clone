@@ -2,10 +2,24 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { TouchableOpacity, TextInput, ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import { post, updateLegenda } from '../Actions/AppActions';
+import { post, updateLegenda, infoPerfilUser, } from '../Actions/AppActions';
 
 class FinalizarPost extends Component {
+
+	UNSAFE_componentWillMount() {
+		this.props.infoPerfilUser();
+		this.criaFonteDeDados(this.props.info,);
+	}
+
+	UNSAFE_componentWillReceiveProps(nextProps) {
+		this.criaFonteDeDados(nextProps.info,);
+	}
+
+	criaFonteDeDados(info,) {
+		this.dataSource = info;
+	}
 
 	render() {
 		const { route } = this.props;
@@ -23,7 +37,7 @@ class FinalizarPost extends Component {
 						<Text style={{ fontWeight: '700', fontSize: 18 }}>Editar</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => this.props.post(imagem, this.props.legenda_photo, this.props.navigation)} style={{ marginRight: 7, marginTop: 15 }}>
+					<TouchableOpacity onPress={() => this.props.post(imagem, this.props.legenda_photo, this.dataSource[0].nomeUsr, this.dataSource[0].foto, this.props.navigation)} style={{ marginRight: 7, marginTop: 15 }}>
 						<Text style={{ fontSize: 17, color: '#3598f1', fontWeight: '600', }}>Postar</Text>
 					</TouchableOpacity>
 
@@ -100,10 +114,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 
+	const info = _.map(state.InfoPerfilUser, (val, uid) => {
+		return { ...val, uid };
+	});
+
 	return {
+		info,
 		legenda_photo: state.InfoPerfilUser.legenda_photo,
 	}
 
 }
 
-export default connect(mapStateToProps, { post, updateLegenda })(FinalizarPost);
+export default connect(mapStateToProps, { post, updateLegenda, infoPerfilUser, })(FinalizarPost);

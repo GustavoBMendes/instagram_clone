@@ -302,7 +302,7 @@ export const updateLegenda = (legenda) => {
 
 }
 
-export const post = (foto, legenda, navigation ) => {
+export const post = (foto, legenda, nomeUsr, fotoPerfil, navigation, ) => {
 
 	const { currentUser } = firebase.auth();
 	const emailUserLogado = b64.encode( currentUser.email );
@@ -317,7 +317,7 @@ export const post = (foto, legenda, navigation ) => {
 		.then(() => {
 			ref.child('postagens').child(emailUserLogado).push({ 'foto': foto, 'legenda': legenda })
 			.then(() => {
-				firebase.database().ref('/feed/'+emailUserLogado).push({ 'foto': foto, 'legenda': legenda })
+				firebase.database().ref('/feed/'+emailUserLogado).push({ 'foto': foto, 'legenda': legenda, 'nomeUsr': nomeUsr, 'fotoPerfil': fotoPerfil, })
 				.then(() => { postSucesso(navigation) })
 			})
 		})
